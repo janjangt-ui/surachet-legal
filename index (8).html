@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SURACHET AIAMLAOR LEGAL AI CONSULTANCY</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#b5904a;--gold-light:#d4aa6a;--gold-dark:#8a6a30;
+  --dark:#0d0d0d;--dark2:#1a1a1a;--dark3:#2a2a2a;
+  --text:#e8e0d0;--text-muted:#a09080;
+  --border:rgba(181,144,74,0.3);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Sarabun',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,13,13,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;height:60px;gap:2rem}
+.nav-logo{font-family:'Noto Serif Thai',serif;font-size:1.1rem;font-weight:700;color:var(--gold);white-space:nowrap;text-decoration:none}
+.nav-links{display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;flex:1}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:13px;padding:6px 10px;border-radius:6px;transition:all 0.2s;white-space:nowrap}
+.nav-links a:hover{color:var(--gold);background:rgba(181,144,74,0.1)}
+.dropdown{position:relative}
+.dropdown-toggle{cursor:pointer;color:var(--text-muted);font-size:13px;padding:6px 10px;border-radius:6px;transition:all 0.2s;background:none;border:none;font-family:inherit;white-space:nowrap}
+.dropdown-toggle:hover{color:var(--gold);background:rgba(181,144,74,0.1)}
+.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:var(--dark2);border:1px solid var(--border);border-radius:8px;min-width:220px;padding:8px;z-index:200;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
+.dropdown:hover .dropdown-menu{display:block}
+.dropdown-menu a{display:block;color:var(--text-muted);text-decoration:none;padding:8px 12px;border-radius:6px;font-size:13px;transition:all 0.2s}
+.dropdown-menu a:hover{color:var(--gold);background:rgba(181,144,74,0.1)}
+.dropdown-menu .divider{border-top:1px solid var(--border);margin:4px 0}
+.nav-auth{margin-left:auto;display:flex;gap:8px;align-items:center}
+.btn-login{background:none;border:1px solid var(--border);color:var(--text);padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;font-family:inherit;transition:all 0.2s}
+.btn-login:hover{border-color:var(--gold);color:var(--gold)}
+.btn-register{background:var(--gold);border:none;color:var(--dark);padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;font-family:inherit;font-weight:600;transition:all 0.2s}
+.btn-register:hover{background:var(--gold-light)}
+
+/* PAGES */
+.page{display:none;padding-top:60px;min-height:100vh}
+.page.active{display:block}
+
+/* HERO */
+.hero{padding:5rem 2rem 4rem;text-align:center;max-width:900px;margin:0 auto}
+.hero-badge{display:inline-block;background:rgba(181,144,74,0.15);border:1px solid var(--border);color:var(--gold);padding:6px 16px;border-radius:20px;font-size:12px;letter-spacing:0.1em;margin-bottom:1.5rem}
+.hero h1{font-family:'Noto Serif Thai',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;color:#fff;line-height:1.3;margin-bottom:1rem}
+.hero h1 span{color:var(--gold)}
+.hero p{font-size:1.1rem;color:var(--text-muted);max-width:600px;margin:0 auto 2rem;line-height:1.7}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:var(--dark);padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;transition:all 0.2s;border:none;cursor:pointer;font-family:inherit}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px)}
+.btn-secondary{background:none;color:var(--gold);padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all 0.2s;border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--gold);background:rgba(181,144,74,0.1)}
+
+/* SERVICES */
+.section{padding:4rem 2rem;max-width:1100px;margin:0 auto}
+.section-title{text-align:center;margin-bottom:3rem}
+.section-title h2{font-family:'Noto Serif Thai',serif;font-size:1.8rem;color:#fff;margin-bottom:0.5rem}
+.section-title p{color:var(--text-muted)}
+.label{display:inline-block;font-size:11px;letter-spacing:0.1em;color:var(--gold);text-transform:uppercase;margin-bottom:0.5rem;display:block}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
+.service-card{background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all 0.2s}
+.service-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.service-num{font-size:2rem;font-weight:700;color:var(--gold);opacity:0.3;margin-bottom:0.5rem}
+.service-card h3{font-size:1rem;color:#fff;margin-bottom:0.5rem}
+.service-card p{font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:1rem}
+.service-link{color:var(--gold);text-decoration:none;font-size:13px;font-weight:500}
+.service-link:hover{text-decoration:underline}
+
+/* CASE TYPES */
+.case-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.case-chip{background:var(--dark2);border:1px solid var(--border);border-radius:8px;padding:1rem;cursor:pointer;transition:all 0.2s;text-decoration:none;display:block}
+.case-chip:hover{border-color:var(--gold);background:rgba(181,144,74,0.05)}
+.case-chip h4{font-size:14px;color:#fff;margin-bottom:4px}
+.case-chip p{font-size:12px;color:var(--text-muted)}
+
+/* NOTEBOOK PAGE */
+.page-header{padding:3rem 2rem 2rem;max-width:900px;margin:0 auto}
+.page-header .back{color:var(--text-muted);text-decoration:none;font-size:13px;display:inline-flex;align-items:center;gap:6px;margin-bottom:1rem;transition:color 0.2s}
+.page-header .back:hover{color:var(--gold)}
+.page-header h1{font-family:'Noto Serif Thai',serif;font-size:2rem;color:#fff;margin-bottom:0.5rem;border-left:4px solid var(--gold);padding-left:1rem}
+.page-header p{color:var(--text-muted);padding-left:1.25rem}
+.notebook-list{max-width:900px;margin:0 auto;padding:0 2rem 4rem;display:flex;flex-direction:column;gap:12px}
+.notebook-card{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.25rem;display:flex;align-items:center;gap:1.25rem;transition:all 0.2s;text-decoration:none}
+.notebook-card:hover{border-color:var(--gold);background:rgba(181,144,74,0.05);transform:translateX(4px)}
+.nb-num{font-size:1.5rem;font-weight:700;color:var(--gold);min-width:2rem;text-align:center;opacity:0.7}
+.nb-body{flex:1;min-width:0}
+.nb-title{font-size:15px;font-weight:600;color:#fff;margin-bottom:3px}
+.nb-sub{font-size:12px;color:var(--text-muted)}
+.nb-url{font-size:11px;color:var(--gold);opacity:0.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.nb-arrow{font-size:18px;color:var(--gold);flex-shrink:0;opacity:0.6}
+.special-banner{background:rgba(181,144,74,0.1);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.special-banner p{font-size:14px;color:var(--text)}
+.special-banner a{background:var(--gold);color:var(--dark);padding:8px 16px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;white-space:nowrap}
+.nb-group-header{font-family:'Noto Serif Thai',serif;font-size:1rem;color:var(--gold);padding:0.6rem 1rem;background:rgba(181,144,74,0.08);border:1px solid var(--border);border-radius:8px;margin-top:8px;margin-bottom:2px;letter-spacing:0.03em}
+
+/* ALL CASES */
+.all-cases-section{max-width:1100px;margin:0 auto;padding:2rem}
+.category-block{margin-bottom:3rem}
+.category-block h2{font-family:'Noto Serif Thai',serif;font-size:1.3rem;color:#fff;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border)}
+.sub-category{margin-bottom:1.5rem}
+.sub-category h3{font-size:14px;color:var(--gold);margin-bottom:0.75rem;font-weight:500}
+
+/* ABOUT */
+.about-content{max-width:800px;margin:0 auto;padding:2rem}
+.about-content h2{font-family:'Noto Serif Thai',serif;font-size:1.5rem;color:#fff;margin:2rem 0 1rem}
+.about-content p{color:var(--text-muted);line-height:1.8;margin-bottom:1rem}
+.about-content blockquote{border-left:3px solid var(--gold);padding-left:1rem;color:var(--text);font-style:italic;margin:1.5rem 0}
+.highlight-box{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin-bottom:1rem}
+.highlight-box h3{color:var(--gold);font-size:15px;margin-bottom:0.5rem}
+.highlight-box p{font-size:13px;color:var(--text-muted);line-height:1.6}
+
+/* CONTACT */
+.contact-section{max-width:700px;margin:0 auto;padding:2rem;text-align:center}
+.line-btn{display:inline-flex;align-items:center;gap:10px;background:#06C755;color:#fff;padding:14px 28px;border-radius:10px;text-decoration:none;font-size:16px;font-weight:600;margin:1.5rem 0;transition:all 0.2s}
+.line-btn:hover{background:#05a847;transform:translateY(-2px)}
+.hours{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:1.25rem;text-align:left;margin-top:1.5rem}
+.hours h3{color:var(--gold);font-size:14px;margin-bottom:0.75rem}
+.hours p{font-size:13px;color:var(--text-muted);line-height:1.8}
+
+/* AI CHAT */
+.ai-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;max-width:1100px;margin:0 auto;padding:0 2rem 3rem}
+.ai-card{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:1.25rem;transition:all 0.2s}
+.ai-card:hover{border-color:var(--gold)}
+.ai-card h3{font-size:14px;color:#fff;margin-bottom:0.5rem}
+.ai-card p{font-size:12px;color:var(--text-muted);margin-bottom:1rem}
+.ai-card a{color:var(--gold);text-decoration:none;font-size:13px;font-weight:500}
+.ai-card a:hover{text-decoration:underline}
+
+/* BLOG */
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto;padding:0 2rem 3rem}
+.blog-card{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:1.5rem;transition:all 0.2s}
+.blog-card:hover{border-color:var(--gold)}
+.blog-date{font-size:11px;color:var(--gold);margin-bottom:0.5rem}
+.blog-card h3{font-size:15px;color:#fff;margin-bottom:0.5rem;line-height:1.4}
+.blog-card p{font-size:13px;color:var(--text-muted);line-height:1.6}
+
+/* DRAFT FORM */
+.draft-section{max-width:700px;margin:0 auto;padding:0 2rem 3rem}
+.form-group{margin-bottom:1.25rem}
+.form-group label{display:block;font-size:13px;color:var(--text-muted);margin-bottom:6px}
+.form-group select,.form-group textarea,.form-group input{width:100%;background:var(--dark2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:inherit;font-size:14px;transition:border-color 0.2s}
+.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--gold)}
+.form-group textarea{min-height:120px;resize:vertical}
+.form-group select option{background:var(--dark2)}
+
+/* HOW TO */
+.howto-steps{max-width:700px;margin:0 auto;padding:0 2rem 3rem;display:flex;flex-direction:column;gap:1.25rem}
+.step{display:flex;gap:1.25rem;align-items:flex-start}
+.step-num{background:var(--gold);color:var(--dark);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0}
+.step-body h3{font-size:15px;color:#fff;margin-bottom:0.25rem}
+.step-body p{font-size:13px;color:var(--text-muted);line-height:1.6}
+
+/* FOOTER */
+footer{background:var(--dark2);border-top:1px solid var(--border);padding:3rem 2rem;margin-top:4rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem;max-width:1100px;margin:0 auto 2rem}
+.footer-brand h3{font-family:'Noto Serif Thai',serif;font-size:1rem;color:var(--gold);margin-bottom:0.5rem}
+.footer-brand p{font-size:12px;color:var(--text-muted);line-height:1.6}
+.footer-col h4{font-size:12px;color:var(--gold);letter-spacing:0.05em;margin-bottom:0.75rem}
+.footer-col a{display:block;font-size:12px;color:var(--text-muted);text-decoration:none;margin-bottom:4px;transition:color 0.2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{text-align:center;font-size:11px;color:var(--text-muted);padding-top:1.5rem;border-top:1px solid var(--border);max-width:1100px;margin:0 auto}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:500;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--dark2);border:1px solid var(--border);border-radius:14px;padding:2rem;width:90%;max-width:420px}
+.modal h2{font-family:'Noto Serif Thai',serif;font-size:1.3rem;color:#fff;margin-bottom:1.5rem;text-align:center}
+.modal-tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1.5rem}
+.modal-tab{flex:1;padding:8px;text-align:center;font-size:14px;cursor:pointer;color:var(--text-muted);border-bottom:2px solid transparent;transition:all 0.2s}
+.modal-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.modal-form{display:none}
+.modal-form.active{display:block}
+.social-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text);font-family:inherit;font-size:14px;cursor:pointer;margin-bottom:8px;transition:all 0.2s}
+.social-btn:hover{border-color:var(--gold);color:var(--gold)}
+.divider-text{text-align:center;font-size:12px;color:var(--text-muted);margin:1rem 0;position:relative}
+.divider-text::before,.divider-text::after{content:'';position:absolute;top:50%;width:40%;height:1px;background:var(--border)}
+.divider-text::before{left:0}
+.divider-text::after{right:0}
+.modal input{width:100%;background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:inherit;font-size:14px;margin-bottom:10px}
+.modal input:focus{outline:none;border-color:var(--gold)}
+.modal-submit{width:100%;background:var(--gold);color:var(--dark);border:none;border-radius:8px;padding:11px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-top:4px}
+.modal-submit:hover{background:var(--gold-light)}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--text-muted);font-size:20px;cursor:pointer}
+.modal{position:relative}
+.modal-footer{text-align:center;font-size:12px;color:var(--text-muted);margin-top:1rem}
+.modal-footer a{color:var(--gold);cursor:pointer;text-decoration:none}
+.user-menu{display:none;position:relative}
+.user-btn{background:rgba(181,144,74,0.15);border:1px solid var(--border);color:var(--gold);padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;font-family:inherit}
+.user-dropdown{display:none;position:absolute;right:0;top:100%;background:var(--dark2);border:1px solid var(--border);border-radius:8px;min-width:180px;padding:8px;z-index:200}
+.user-menu:hover .user-dropdown{display:block}
+.user-dropdown a{display:block;color:var(--text-muted);text-decoration:none;padding:8px 12px;border-radius:6px;font-size:13px;transition:all 0.2s;cursor:pointer}
+.user-dropdown a:hover{color:var(--gold);background:rgba(181,144,74,0.1)}
+@media(max-width:768px){
+  .footer-grid{grid-template-columns:1fr}
+  nav{padding:0 1rem;gap:1rem}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('home')">⚖ SURACHET AIAMLAOR</a>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home')">หน้าแรก</a>
+    <a href="#" onclick="showPage('about')">เกี่ยวกับเรา</a>
+    <div class="dropdown">
+      <button class="dropdown-toggle">คดีปกครอง ▾</button>
+      <div class="dropdown-menu">
+        <a href="#" onclick="showPage('all-cases')">รวมคดีปกครองทั้งหมด</a>
+        <div class="divider"></div>
+        <a href="#" onclick="showNotebook('admin')">๑. คดีปกครอง – ฐานความผิดทางปกครอง</a>
+        <a href="#" onclick="showNotebook('admin')">๒. คดีปกครอง – การออกคำสั่งทางปกครอง</a>
+        <a href="#" onclick="showNotebook('admin')">๓. คดีปกครอง – การละเลยหน้าที่</a>
+        <a href="#" onclick="showNotebook('admin')">๔. คดีปกครอง – การฟ้องศาลออนไลน์</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropdown-toggle">คดีคุ้มครองผู้บริโภค ▾</button>
+      <div class="dropdown-menu">
+        <a href="#" onclick="showPage('all-cases')">รวมคดีคุ้มครองผู้บริโภคทั้งหมด</a>
+        <div class="divider"></div>
+        <a href="#" onclick="showNotebook('consumer')">๑. สิทธิผู้บริโภคพื้นฐาน</a>
+        <a href="#" onclick="showNotebook('consumer')">๒. คดีสินค้าบกพร่อง</a>
+        <a href="#" onclick="showNotebook('consumer')">๓. คดีโฆษณาเกินจริง</a>
+        <a href="#" onclick="showNotebook('consumer')">๔. ฟ้องศาลออนไลน์</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropdown-toggle">คดีแรงงาน ▾</button>
+      <div class="dropdown-menu">
+        <a href="#" onclick="showNotebook('labor')">รวมคดีแรงงานทั้งหมด</a>
+        <div class="divider"></div>
+        <a href="#" onclick="showNotebook('labor')">สำนักงานปลัดกระทรวงแรงงาน</a>
+        <a href="#" onclick="showNotebook('labor')">กรมสวัสดิการและคุ้มครองแรงงาน</a>
+        <a href="#" onclick="showNotebook('labor')">กรมการจัดหางาน</a>
+        <a href="#" onclick="showNotebook('labor')">กรมพัฒนาฝีมือแรงงาน</a>
+        <a href="#" onclick="showNotebook('labor')">สำนักงานประกันสังคม</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropdown-toggle">คดีแพ่ง ▾</button>
+      <div class="dropdown-menu">
+        <a href="#" onclick="showNotebook('civil')">๑. สัญญาและนิติกรรม</a>
+        <a href="#" onclick="showNotebook('civil')">๒. ละเมิด</a>
+        <a href="#" onclick="showNotebook('civil')">๓. ทรัพย์สินและมรดก</a>
+        <a href="#" onclick="showNotebook('civil')">๔. ครอบครัว</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropdown-toggle">คดีอาญา ▾</button>
+      <div class="dropdown-menu">
+        <a href="#" onclick="showNotebook('criminal')">๑. คดีอาญาทั่วไป</a>
+        <a href="#" onclick="showNotebook('criminal')">๒. คดีทุจริต</a>
+        <a href="#" onclick="showNotebook('criminal')">๓. คดียาเสพติด</a>
+        <a href="#" onclick="showNotebook('criminal')">๔. คดีความมั่นคง</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropdown-toggle">บริการของเรา ▾</button>
+      <div class="dropdown-menu">
+        <a href="#" onclick="showPage('all-cases')">รวมบริการทั้งหมด</a>
+        <div class="divider"></div>
+        <a href="#" onclick="showPage('ai-consult')">ปรึกษาด้วย AI</a>
+        <a href="#" onclick="showPage('expert')">ปรึกษาผู้เชี่ยวชาญ</a>
+        <a href="#" onclick="showPage('draft')">ร่างแบบฟอร์ม AI</a>
+        <a href="#" onclick="showPage('blog')">บล็อกบทความกฎหมาย</a>
+        <a href="#" onclick="showPage('howto')">วิธีใช้ AI</a>
+      </div>
+    </div>
+  </div>
+  <div class="nav-auth" id="navAuth">
+    <button class="btn-login" onclick="openModal('login')">เข้าสู่ระบบ</button>
+    <button class="btn-register" onclick="openModal('register')">สมัครสมาชิก</button>
+  </div>
+  <div class="user-menu" id="userMenu">
+    <button class="user-btn" id="userBtn">ผู้ใช้ ▾</button>
+    <div class="user-dropdown">
+      <a onclick="showPage('ai-consult')">🤖 ปรึกษา AI</a>
+      <a onclick="showPage('draft')">📋 ร่างเอกสาร</a>
+      <a onclick="showPage('services')">⚡ บริการทั้งหมด</a>
+      <a onclick="logout()">🚪 ออกจากระบบ</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-badge">LEGAL AI CONSULTANCY</div>
+    <h1>SURACHET AIAMLAOR<br><span>LEGAL AI CONSULTANCY</span></h1>
+    <p>ระบบให้คำปรึกษากฎหมายด้วย AI ที่ทันสมัย เชี่ยวชาญด้านคดีปกครอง คดีคุ้มครองผู้บริโภค คดีรัฐธรรมนูญ และคดีแรงงาน พร้อมทีมผู้เชี่ยวชาญกฎหมายมากประสบการณ์</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="goToAIConsult()">ปรึกษาด้วย AI ทันที</button>
+      <button class="btn-secondary" onclick="showPage('services')">บริการของเรา</button>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">
+      <span class="label">บริการหลัก</span>
+      <h2>เลือกรูปแบบการให้คำปรึกษา</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <h3>ให้คำปรึกษาด้วยระบบ AI</h3>
+        <p>ระบบ AI อัจฉริยะที่เชี่ยวชาญด้านกฎหมายไทย วิเคราะห์คดีและให้คำแนะนำเบื้องต้นได้ทันที ตลอด 24 ชั่วโมง</p>
+        <a class="service-link" href="#" onclick="goToAIConsult()">เริ่มปรึกษาเลย →</a>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <h3>ปรึกษาโดยผู้เชี่ยวชาญ</h3>
+        <p>ทีมทนายความผู้เชี่ยวชาญพร้อมให้คำปรึกษาเชิงลึก นัดหมายผ่าน LINE ได้ทันที</p>
+        <a class="service-link" href="#" onclick="showPage('expert')">ติดต่อผู้เชี่ยวชาญ →</a>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <h3>รับทำคดีฟ้องศาลออนไลน์</h3>
+        <p>รับดำเนินคดีปกครองและคดีคุ้มครองผู้บริโภคผ่านระบบออนไลน์ครบทุกขั้นตอน</p>
+        <a class="service-link" href="https://line.me/ti/p/surachet.a" target="_blank">ยื่นฟ้องออนไลน์ →</a>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <h3>ร่างคำฟ้องและแบบฟอร์มด้วย AI</h3>
+        <p>ร่างคำฟ้อง คำร้อง และแบบฟอร์มทางกฎหมายทุกประเภทด้วย AI อัจฉริยะ</p>
+        <a class="service-link" href="#" onclick="showPage('draft')">ร่างเอกสาร AI →</a>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">
+      <span class="label">ประเภทคดีและกฎหมาย</span>
+      <h2>รวมทุกหน้าเพจคดีและกฎหมาย</h2>
+    </div>
+    <div class="case-grid">
+      <a class="case-chip" href="#" onclick="showNotebook('constitution')"><h4>คดีรัฐธรรมนูญ</h4><p>กฎหมายรัฐธรรมนูญและสิทธิพลเมือง</p></a>
+      <a class="case-chip" href="#" onclick="showNotebook('admin')"><h4>คดีปกครอง</h4><p>ฟ้องศาลปกครองออนไลน์</p></a>
+      <a class="case-chip" href="#" onclick="showNotebook('consumer')"><h4>คดีคุ้มครองผู้บริโภค</h4><p>สิทธิผู้บริโภค ฟ้องศาลออนไลน์</p></a>
+      <a class="case-chip" href="#" onclick="showNotebook('labor')"><h4>คดีแรงงาน</h4><p>กฎหมายแรงงานและประกันสังคม</p></a>
+      <a class="case-chip" href="#" onclick="showNotebook('civil')"><h4>คดีแพ่ง</h4><p>สัญญา ละเมิด มรดก ครอบครัว</p></a>
+      <a class="case-chip" href="#" onclick="showNotebook('criminal')"><h4>คดีอาญา</h4><p>คดีอาญาทุกประเภท</p></a>
+      <a class="case-chip" href="#" onclick="showNotebook('land')"><h4>คดีที่ดิน</h4><p>กรรมสิทธิ์ที่ดินและอสังหาริมทรัพย์</p></a>
+      <a class="case-chip" href="#" onclick="showNotebook('procurement')"><h4>คดีจัดซื้อจัดจ้าง</h4><p>กฎหมายจัดซื้อจัดจ้างภาครัฐ</p></a>
+    </div>
+  </div>
+  <div class="section" style="text-align:center">
+    <div class="section-title"><h2>พร้อมให้ความช่วยเหลือด้านกฎหมายทันที</h2><p>ปรึกษาฟรีเบื้องต้นกับระบบ AI หรือติดต่อผู้เชี่ยวชาญผ่าน LINE</p></div>
+    <button class="btn-primary" onclick="showPage('ai-consult')" style="margin-right:1rem">ปรึกษา AI ฟรี</button>
+    <a class="btn-secondary" href="https://line.me/ti/p/surachet.a" target="_blank">💬 LINE: surachet.a</a>
+  </div>
+</div>
+
+<!-- คดีที่ดิน PAGE -->
+<div class="page" id="page-land">
+  <div class="page-header">
+    <a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a>
+    <h1>คดีที่ดิน</h1>
+    <p>ฐานข้อมูล AI เฉพาะด้านกฎหมายที่ดินและอสังหาริมทรัพย์</p>
+  </div>
+  <div class="notebook-list">
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/edac55f9-c233-4e36-a779-d53d6ebc69d0" target="_blank" rel="noopener">
+      <div class="nb-num">๑</div>
+      <div class="nb-body">
+        <div class="nb-title">คดีที่ดิน</div>
+        <div class="nb-url">notebooklm.google.com/notebook/edac55f9-c233-4e36-a779-d53d6ebc69d0</div>
+      </div>
+      <div class="nb-arrow">↗</div>
+    </a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/30692859-f6cb-44a6-9a5d-0bfa47b2d39c" target="_blank" rel="noopener">
+      <div class="nb-num">๒</div>
+      <div class="nb-body">
+        <div class="nb-title">คดีที่ดิน</div>
+        <div class="nb-url">notebooklm.google.com/notebook/30692859-f6cb-44a6-9a5d-0bfa47b2d39c</div>
+      </div>
+      <div class="nb-arrow">↗</div>
+    </a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/95bbc657-4696-4984-9521-c55e86dceeae" target="_blank" rel="noopener">
+      <div class="nb-num">๓</div>
+      <div class="nb-body">
+        <div class="nb-title">คดีที่ดิน</div>
+        <div class="nb-url">notebooklm.google.com/notebook/95bbc657-4696-4984-9521-c55e86dceeae</div>
+      </div>
+      <div class="nb-arrow">↗</div>
+    </a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/edac55f9-c233-4e36-a779-d53d6ebc69d0" target="_blank" rel="noopener">
+      <div class="nb-num">๔</div>
+      <div class="nb-body">
+        <div class="nb-title">คดีที่ดิน</div>
+        <div class="nb-url">notebooklm.google.com/notebook/edac55f9-c233-4e36-a779-d53d6ebc69d0</div>
+      </div>
+      <div class="nb-arrow">↗</div>
+    </a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/e9710bb5-645c-4971-b7e7-59c8e20f1d17" target="_blank" rel="noopener">
+      <div class="nb-num">๕</div>
+      <div class="nb-body">
+        <div class="nb-title">คดีที่ดิน</div>
+        <div class="nb-url">notebooklm.google.com/notebook/e9710bb5-645c-4971-b7e7-59c8e20f1d17</div>
+      </div>
+      <div class="nb-arrow">↗</div>
+    </a>
+  </div>
+</div>
+
+<!-- คดีปกครอง -->
+<div class="page" id="page-admin">
+  <div class="page-header">
+    <a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a>
+    <h1>คดีปกครอง</h1>
+    <p>ฐานข้อมูล AI เฉพาะด้านคดีปกครอง พร้อมบริการฟ้องศาลปกครองออนไลน์</p>
+  </div>
+  <div class="notebook-list">
+    <div class="special-banner">
+      <p>⚖ <strong>บริการพิเศษ:</strong> ฟ้องศาลปกครองออนไลน์ รับดำเนินคดีปกครองผ่านระบบออนไลน์ครบทุกขั้นตอน</p>
+      <a href="https://line.me/ti/p/surachet.a" target="_blank">💬 ติดต่อฟ้องออนไลน์</a>
+    </div>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/145c1038-1792-4f6b-88e9-f1e5236d90ec" target="_blank"><div class="nb-num">๑</div><div class="nb-body"><div class="nb-title">คดีปกครอง – หลักกฎหมายปกครองทั่วไป</div><div class="nb-sub">ฐานข้อมูล AI: หลักการพื้นฐานกฎหมายปกครอง</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/93a991ec-c30a-4a42-b15f-773807c93d81" target="_blank"><div class="nb-num">๒</div><div class="nb-body"><div class="nb-title">คดีปกครอง – คำสั่งทางปกครองและการเพิกถอน</div><div class="nb-sub">ฐานข้อมูล AI: การออกคำสั่ง การอุทธรณ์ การเพิกถอน</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/bfc7f76a-bca2-4a0a-be3d-277251761f19" target="_blank"><div class="nb-num">๓</div><div class="nb-body"><div class="nb-title">คดีปกครอง – การละเลยหน้าที่และล่าช้าเกินสมควร</div><div class="nb-sub">ฐานข้อมูล AI: เจ้าหน้าที่ละเลย หน้าที่ตามกฎหมาย</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/93a991ec-c30a-4a42-b15f-773807c93d81" target="_blank"><div class="nb-num">๔</div><div class="nb-body"><div class="nb-title">คดีปกครอง – การฟ้องศาลปกครองออนไลน์</div><div class="nb-sub">ฐานข้อมูล AI: ขั้นตอน วิธีการ เอกสารที่ต้องใช้</div></div><div class="nb-arrow">↗</div></a>
+  </div>
+</div>
+
+<!-- คดีคุ้มครองผู้บริโภค -->
+<div class="page" id="page-consumer">
+  <div class="page-header">
+    <a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a>
+    <h1>คดีคุ้มครองผู้บริโภค</h1>
+    <p>ฐานข้อมูล AI เฉพาะด้านคดีคุ้มครองผู้บริโภค พร้อมบริการฟ้องศาลออนไลน์</p>
+  </div>
+  <div class="notebook-list">
+    <div class="special-banner"><p>🛡 <strong>บริการพิเศษ:</strong> ฟ้องคดีคุ้มครองผู้บริโภคออนไลน์</p><a href="https://line.me/ti/p/surachet.a" target="_blank">💬 ติดต่อ</a></div>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/b3179b87-7683-45ef-8e3e-776264e31c8e" target="_blank"><div class="nb-num">๑</div><div class="nb-body"><div class="nb-title">คดีคุ้มครองผู้บริโภค – สิทธิพื้นฐานของผู้บริโภค</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/edbc83ab-73cd-4a59-9966-1a3dbd819088" target="_blank"><div class="nb-num">๒</div><div class="nb-body"><div class="nb-title">คดีคุ้มครองผู้บริโภค – สินค้าบกพร่องและการเรียกค่าเสียหาย</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/9b656798-324f-4fe7-a36f-8b56803da7ea" target="_blank"><div class="nb-num">๓</div><div class="nb-body"><div class="nb-title">คดีคุ้มครองผู้บริโภค – โฆษณาเกินจริงและสัญญาไม่เป็นธรรม</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/f3f2ea3a-155c-489c-8cf3-6425c8986324" target="_blank"><div class="nb-num">๔</div><div class="nb-body"><div class="nb-title">คดีคุ้มครองผู้บริโภค – ขั้นตอนการฟ้องคดีผู้บริโภค</div></div><div class="nb-arrow">↗</div></a>
+  </div>
+</div>
+
+<!-- คดีแพ่ง -->
+<div class="page" id="page-civil">
+  <div class="page-header"><a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a><h1>คดีแพ่ง</h1><p>ฐานข้อมูล AI เฉพาะด้านคดีแพ่ง</p></div>
+  <div class="notebook-list">
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/ae4721c4-c1dc-4623-98e7-d2d4e30c321a" target="_blank"><div class="nb-num">๑</div><div class="nb-body"><div class="nb-title">คดีแพ่ง – สัญญาและนิติกรรม</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/ae4721c4-c1dc-4623-98e7-d2d4e30c321a" target="_blank"><div class="nb-num">๒</div><div class="nb-body"><div class="nb-title">คดีแพ่ง – ละเมิดและค่าเสียหาย</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/ae4721c4-c1dc-4623-98e7-d2d4e30c321a" target="_blank"><div class="nb-num">๓</div><div class="nb-body"><div class="nb-title">คดีแพ่ง – ทรัพย์สินและมรดก</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/ae4721c4-c1dc-4623-98e7-d2d4e30c321a" target="_blank"><div class="nb-num">๔</div><div class="nb-body"><div class="nb-title">คดีแพ่ง – ครอบครัวและสมรส</div></div><div class="nb-arrow">↗</div></a>
+  </div>
+</div>
+
+<!-- คดีอาญา -->
+<div class="page" id="page-criminal">
+  <div class="page-header"><a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a><h1>คดีอาญา</h1><p>ฐานข้อมูล AI เฉพาะด้านคดีอาญาทุกประเภท</p></div>
+  <div class="notebook-list">
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/15c72a93-4d36-4f83-ac48-06044df62f1e" target="_blank"><div class="nb-num">๑</div><div class="nb-body"><div class="nb-title">คดีอาญา – หลักกฎหมายอาญาทั่วไป</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/aed6f144-16c8-404c-9ee8-a3491d64d24d" target="_blank"><div class="nb-num">๒</div><div class="nb-body"><div class="nb-title">คดีอาญา – คดีทุจริตและประพฤติมิชอบ</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/be4e0d81-b6b7-4253-b7ce-198a271d98bb" target="_blank"><div class="nb-num">๓</div><div class="nb-body"><div class="nb-title">คดีอาญา – คดียาเสพติด</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/fad91f3b-04f4-4d28-9c58-5d618715d9a0" target="_blank"><div class="nb-num">๔</div><div class="nb-body"><div class="nb-title">คดีอาญา – คดีความมั่นคง</div></div><div class="nb-arrow">↗</div></a>
+  </div>
+</div>
+
+<!-- คดีรัฐธรรมนูญ -->
+<div class="page" id="page-constitution">
+  <div class="page-header"><a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a><h1>คดีรัฐธรรมนูญ</h1><p>ฐานข้อมูล AI เฉพาะด้านคดีรัฐธรรมนูญ</p></div>
+  <div class="notebook-list">
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/145c1038-1792-4f6b-88e9-f1e5236d90ec" target="_blank"><div class="nb-num">๑</div><div class="nb-body"><div class="nb-title">คดีรัฐธรรมนูญ – หลักการพื้นฐานและสิทธิเสรีภาพ</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/291d78d0-b2da-4bdf-997c-8c1a6ff48d7a" target="_blank"><div class="nb-num">๒</div><div class="nb-body"><div class="nb-title">คดีรัฐธรรมนูญ – การวินิจฉัยของศาลรัฐธรรมนูญ</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/1b397d9c-a32e-4a23-8fbc-f86cecc072fc" target="_blank"><div class="nb-num">๓</div><div class="nb-body"><div class="nb-title">คดีรัฐธรรมนูญ – อำนาจหน้าที่ขององค์กรตามรัฐธรรมนูญ</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/0b2501e9-cf53-4ed6-8e76-1747924103e5" target="_blank"><div class="nb-num">๔</div><div class="nb-body"><div class="nb-title">คดีรัฐธรรมนูญ – กระบวนการยื่นคำร้องศาลรัฐธรรมนูญ</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/828a4ee4-f331-4300-bcaf-4a24983c4e5d" target="_blank"><div class="nb-num">๕</div><div class="nb-body"><div class="nb-title">คดีรัฐธรรมนูญ</div></div><div class="nb-arrow">↗</div></a>
+  </div>
+</div>
+
+<!-- คดีแรงงาน -->
+<div class="page" id="page-labor">
+  <div class="page-header"><a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a><h1>คดีแรงงาน</h1><p>ฐานข้อมูล AI เฉพาะด้านกฎหมายแรงงานและประกันสังคม</p></div>
+  <div class="notebook-list">
+
+    <div class="nb-group-header">สำนักงานปลัดกระทรวงแรงงาน</div>
+    <a class="notebook-card" href="#" target="_blank"><div class="nb-num">๑</div><div class="nb-body"><div class="nb-title">สำนักงานปลัดกระทรวงแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="#" target="_blank"><div class="nb-num">๒</div><div class="nb-body"><div class="nb-title">สำนักงานปลัดกระทรวงแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+
+    <div class="nb-group-header">กรมสวัสดิการและคุ้มครองแรงงาน</div>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/f2f95c03-c5c3-4f10-8818-f89fbbea3ca5" target="_blank"><div class="nb-num">๑</div><div class="nb-body"><div class="nb-title">กรมสวัสดิการและคุ้มครองแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/cc398400-5060-4530-a72d-b1983c202636" target="_blank"><div class="nb-num">๒</div><div class="nb-body"><div class="nb-title">กรมสวัสดิการและคุ้มครองแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/e7a609a1-e9d8-4811-84e1-1f5222f95d3d" target="_blank"><div class="nb-num">๓</div><div class="nb-body"><div class="nb-title">กรมสวัสดิการและคุ้มครองแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/b6abfdda-244f-4db1-9255-cef30886f0d2" target="_blank"><div class="nb-num">๔</div><div class="nb-body"><div class="nb-title">กรมสวัสดิการและคุ้มครองแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/9ec1bf5d-d315-4d6f-915b-444fb2e938eb" target="_blank"><div class="nb-num">๕</div><div class="nb-body"><div class="nb-title">กรมสวัสดิการและคุ้มครองแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/5acbc336-6f7c-431a-90c3-dd1e2e078a04" target="_blank"><div class="nb-num">๖</div><div class="nb-body"><div class="nb-title">กรมสวัสดิการและคุ้มครองแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/e9e4a320-5780-4618-8d30-1fa9e26ea7a0" target="_blank"><div class="nb-num">๗</div><div class="nb-body"><div class="nb-title">กรมสวัสดิการและคุ้มครองแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/3847f383-13b7-4ed3-9cc6-d16531cd5b53" target="_blank"><div class="nb-num">๘</div><div class="nb-body"><div class="nb-title">กรมสวัสดิการและคุ้มครองแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/37db8878-0813-42fb-870e-e5c14190a8bd" target="_blank"><div class="nb-num">๙</div><div class="nb-body"><div class="nb-title">กรมสวัสดิการและคุ้มครองแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/0eb5697d-c3fc-4019-9bd1-b554c00d6f2f" target="_blank"><div class="nb-num">๑๐</div><div class="nb-body"><div class="nb-title">กรมสวัสดิการและคุ้มครองแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/050c033a-f781-4ae4-a64e-ab180703abda" target="_blank"><div class="nb-num">๑๑</div><div class="nb-body"><div class="nb-title">กรมสวัสดิการและคุ้มครองแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/40ee4e5e-8bb6-481b-8472-120564a36793" target="_blank"><div class="nb-num">๑๒</div><div class="nb-body"><div class="nb-title">กรมสวัสดิการและคุ้มครองแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+
+    <div class="nb-group-header">กรมการจัดหางาน</div>
+    <a class="notebook-card" href="#" target="_blank"><div class="nb-num">๑</div><div class="nb-body"><div class="nb-title">กรมการจัดหางาน</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="#" target="_blank"><div class="nb-num">๒</div><div class="nb-body"><div class="nb-title">กรมการจัดหางาน</div></div><div class="nb-arrow">↗</div></a>
+
+    <div class="nb-group-header">กรมพัฒนาฝีมือแรงงาน</div>
+    <a class="notebook-card" href="#" target="_blank"><div class="nb-num">๑</div><div class="nb-body"><div class="nb-title">กรมพัฒนาฝีมือแรงงาน</div></div><div class="nb-arrow">↗</div></a>
+
+    <div class="nb-group-header">สำนักงานประกันสังคม</div>
+    <a class="notebook-card" href="#" target="_blank"><div class="nb-num">๑</div><div class="nb-body"><div class="nb-title">สำนักงานประกันสังคม</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="#" target="_blank"><div class="nb-num">๒</div><div class="nb-body"><div class="nb-title">สำนักงานประกันสังคม</div></div><div class="nb-arrow">↗</div></a>
+
+  </div>
+</div>
+
+<!-- คดีจัดซื้อจัดจ้าง -->
+<div class="page" id="page-procurement">
+  <div class="page-header"><a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a><h1>คดีจัดซื้อจัดจ้าง</h1><p>ฐานข้อมูล AI เฉพาะด้านกฎหมายจัดซื้อจัดจ้างภาครัฐ</p></div>
+  <div class="notebook-list">
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/259938f4-2e85-4f08-a3d1-75937ed59ad4" target="_blank"><div class="nb-num">๑</div><div class="nb-body"><div class="nb-title">คดีจัดซื้อจัดจ้าง – พ.ร.บ.จัดซื้อจัดจ้างฯ 2560</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/259938f4-2e85-4f08-a3d1-75937ed59ad4" target="_blank"><div class="nb-num">๒</div><div class="nb-body"><div class="nb-title">คดีจัดซื้อจัดจ้าง – การประกวดราคาอิเล็กทรอนิกส์</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/259938f4-2e85-4f08-a3d1-75937ed59ad4" target="_blank"><div class="nb-num">๓</div><div class="nb-body"><div class="nb-title">คดีจัดซื้อจัดจ้าง – การอุทธรณ์ผลการจัดซื้อจัดจ้าง</div></div><div class="nb-arrow">↗</div></a>
+    <a class="notebook-card" href="https://notebooklm.google.com/notebook/259938f4-2e85-4f08-a3d1-75937ed59ad4" target="_blank"><div class="nb-num">๔</div><div class="nb-body"><div class="nb-title">คดีจัดซื้อจัดจ้าง – สัญญาและการทุจริต</div></div><div class="nb-arrow">↗</div></a>
+  </div>
+</div>
+
+<!-- AI CONSULT -->
+<div class="page" id="page-ai-consult">
+  <div class="page-header"><a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a><h1>ปรึกษากฎหมายด้วย AI</h1><p>ระบบ AI ที่เชี่ยวชาญด้านกฎหมายไทย พร้อมให้คำปรึกษาตลอด 24 ชั่วโมง</p></div>
+  <div class="ai-grid">
+    <div class="ai-card"><h3>คดีรัฐธรรมนูญ</h3><p>AI วิเคราะห์คดีรัฐธรรมนูญ สิทธิพลเมือง</p><a href="https://notebooklm.google.com/notebook/145c1038-1792-4f6b-88e9-f1e5236d90ec" target="_blank">เปิดฐานข้อมูล ↗</a></div>
+    <div class="ai-card"><h3>คดีปกครอง</h3><p>AI ช่วยฟ้องศาลปกครองออนไลน์</p><a href="https://notebooklm.google.com/notebook/145c1038-1792-4f6b-88e9-f1e5236d90ec" target="_blank">เปิดฐานข้อมูล ↗</a></div>
+    <div class="ai-card"><h3>คดีคุ้มครองผู้บริโภค</h3><p>AI วิเคราะห์สิทธิผู้บริโภค</p><a href="https://notebooklm.google.com/notebook/b3179b87-7683-45ef-8e3e-776264e31c8e" target="_blank">เปิดฐานข้อมูล ↗</a></div>
+    <div class="ai-card"><h3>คดีแรงงาน</h3><p>AI กฎหมายแรงงานและประกันสังคม</p><a href="https://notebooklm.google.com/notebook/b3179b87-7683-45ef-8e3e-776264e31c8e" target="_blank">เปิดฐานข้อมูล ↗</a></div>
+    <div class="ai-card"><h3>คดีแพ่ง</h3><p>AI วิเคราะห์คดีแพ่งทุกประเภท</p><a href="https://notebooklm.google.com/notebook/ae4721c4-c1dc-4623-98e7-d2d4e30c321a" target="_blank">เปิดฐานข้อมูล ↗</a></div>
+    <div class="ai-card"><h3>คดีอาญา</h3><p>AI วิเคราะห์คดีอาญาทุกประเภท</p><a href="https://notebooklm.google.com/notebook/15c72a93-4d36-4f83-ac48-06044df62f1e" target="_blank">เปิดฐานข้อมูล ↗</a></div>
+    <div class="ai-card"><h3>คดีที่ดิน</h3><p>AI วิเคราะห์กรรมสิทธิ์และที่ดิน</p><a href="#" onclick="showNotebook('land')">เปิดฐานข้อมูล ↗</a></div>
+    <div class="ai-card"><h3>คดีจัดซื้อจัดจ้าง</h3><p>AI กฎหมายจัดซื้อจัดจ้างภาครัฐ</p><a href="https://notebooklm.google.com/notebook/259938f4-2e85-4f08-a3d1-75937ed59ad4" target="_blank">เปิดฐานข้อมูล ↗</a></div>
+  </div>
+</div>
+
+<!-- EXPERT -->
+<div class="page" id="page-expert">
+  <div class="page-header"><a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a><h1>ปรึกษาโดยผู้เชี่ยวชาญ</h1><p>ทีมทนายความผู้เชี่ยวชาญกฎหมายพร้อมให้คำปรึกษาเชิงลึก</p></div>
+  <div class="contact-section">
+    <p style="color:var(--text-muted);line-height:1.8">ติดต่อผู้เชี่ยวชาญกฎหมายผ่าน LINE ได้ทันที รับประกันความเป็นส่วนตัวและความถูกต้องทางกฎหมายทุกกรณี</p>
+    <a class="line-btn" href="https://line.me/ti/p/surachet.a" target="_blank">💬 LINE: surachet.a — ปรึกษาทันที</a>
+    <div class="hours"><h3>⏱ เวลาให้บริการ</h3><p>จันทร์ – ศุกร์: 08:00 – 18:00 น.<br>เสาร์: 09:00 – 14:00 น.<br>AI พร้อมให้บริการตลอด 24 ชั่วโมง</p></div>
+  </div>
+</div>
+
+<!-- DRAFT -->
+<div class="page" id="page-draft">
+  <div class="page-header"><a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a><h1>ร่างคำฟ้องและแบบฟอร์มด้วย AI</h1><p>ระบบ AI ร่างแบบฟอร์มที่ทนายความใช้ในศาลทุกประเภทคดี</p></div>
+  <div class="draft-section">
+    <div class="form-group"><label>เลือกประเภทเอกสาร</label><select><option>-- เลือกประเภทแบบฟอร์ม --</option><option>คำฟ้องคดีปกครอง (ศาลปกครอง)</option><option>คำฟ้องคดีคุ้มครองผู้บริโภค</option><option>คำฟ้องคดีแรงงาน</option><option>คำฟ้องคดีแพ่ง</option><option>คำฟ้องคดีอาญา</option><option>คำร้องขอคุ้มครองชั่วคราว</option><option>หนังสือมอบอำนาจ</option><option>บันทึกข้อตกลง (MOU)</option></select></div>
+    <div class="form-group"><label>รายละเอียดคดี</label><textarea placeholder="อธิบายข้อเท็จจริงและประเด็นที่ต้องการ..."></textarea></div>
+    <button class="btn-primary" style="width:100%">🤖 ร่างด้วย AI</button>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:1rem;text-align:center">⚠️ เอกสารที่ AI ร่างเป็นเพียงแนวทางเบื้องต้น ควรให้ทนายความตรวจสอบก่อนนำส่งศาล</p>
+  </div>
+</div>
+
+<!-- BLOG -->
+<div class="page" id="page-blog">
+  <div class="page-header"><a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a><h1>บล็อกบทความกฎหมาย</h1><p>ความรู้กฎหมายจากผู้เชี่ยวชาญ อัปเดตทุกสัปดาห์</p></div>
+  <div class="blog-grid">
+    <div class="blog-card"><div class="blog-date">มิถุนายน 2568</div><h3>สิทธิการฟ้องคดีปกครองออนไลน์ ทำได้ง่ายกว่าที่คิด</h3><p>ขั้นตอนการยื่นฟ้องคดีปกครองผ่านระบบออนไลน์ของศาลปกครอง ตั้งแต่การเตรียมเอกสารจนถึงการติดตามคดี...</p></div>
+    <div class="blog-card"><div class="blog-date">พฤษภาคม 2568</div><h3>คุ้มครองผู้บริโภค: เมื่อสินค้าไม่ได้คุณภาพตามโฆษณา</h3><p>สิทธิของผู้บริโภคเมื่อได้รับสินค้าที่ไม่ตรงตามที่โฆษณา และวิธีดำเนินการทางกฎหมายเพื่อเรียกค่าเสียหาย...</p></div>
+    <div class="blog-card"><div class="blog-date">กุมภาพันธ์ 2568</div><h3>คดีที่ดิน: ป้องกันการถูกหลอกซื้อที่ดินอย่างไร</h3><p>สิ่งที่ต้องตรวจสอบก่อนซื้อที่ดิน และวิธีป้องกันปัญหาทางกฎหมายที่อาจเกิดขึ้น...</p></div>
+    <div class="blog-card"><div class="blog-date">มกราคม 2568</div><h3>AI กับกฎหมาย: อนาคตการให้คำปรึกษากฎหมายไทย</h3><p>ความเป็นไปได้และข้อจำกัดของการใช้ AI ในการให้คำปรึกษากฎหมาย และแนวโน้มในอนาคต...</p></div>
+  </div>
+</div>
+
+<!-- HOW TO -->
+<div class="page" id="page-howto">
+  <div class="page-header"><a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a><h1>วิธีใช้ AI</h1><p>คำแนะนำการใช้งานระบบ AI ให้คำปรึกษากฎหมายอย่างมีประสิทธิภาพ</p></div>
+  <div class="howto-steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><h3>เลือกประเภทคดี</h3><p>เลือกประเภทคดีที่ตรงกับปัญหาของท่านจากเมนูด้านบน หรือจากหน้าแรก</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><h3>คลิกลิงก์ NotebookLM</h3><p>คลิกลิงก์ที่ตรงกับประเด็นของท่าน เพื่อเข้าสู่ระบบ AI ที่มีฐานข้อมูลกฎหมายเฉพาะด้านนั้น</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><h3>รับคำแนะนำจาก AI</h3><p>AI จะวิเคราะห์ข้อเท็จจริงและให้คำแนะนำทางกฎหมายเบื้องต้น พร้อมระบุข้อกฎหมายที่เกี่ยวข้อง</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><h3>ปรึกษาผู้เชี่ยวชาญเพิ่มเติม</h3><p>หากต้องการความช่วยเหลือเพิ่มเติม ติดต่อผู้เชี่ยวชาญผ่าน LINE: surachet.a ได้ทันที</p></div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+  <div class="page-header"><a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a><h1>เกี่ยวกับเรา</h1></div>
+  <div class="about-content">
+    <p>SURACHET AIAMLAOR LEGAL AI CONSULTANCY ก่อตั้งขึ้นด้วยวิสัยทัศน์ในการนำเทคโนโลยีปัญญาประดิษฐ์มาประยุกต์ใช้กับการให้คำปรึกษากฎหมาย เพื่อให้ประชาชนทุกคนสามารถเข้าถึงความยุติธรรมได้อย่างสะดวก รวดเร็ว และมีประสิทธิภาพ</p>
+    <blockquote>"เรามุ่งมั่นให้บริการที่ผสมผสานระหว่างความเชี่ยวชาญของมนุษย์และศักยภาพของ AI เพื่อคุ้มครองสิทธิและผลประโยชน์ของท่านอย่างสูงสุด"</blockquote>
+    <div class="highlight-box"><h3>⚖ คดีปกครอง – ฟ้องศาลออนไลน์</h3><p>เชี่ยวชาญการดำเนินคดีปกครองผ่านระบบออนไลน์ ทั้งการฟ้องขอให้เพิกถอนคำสั่งทางปกครอง การฟ้องละเลยหน้าที่ และการฟ้องให้ชดใช้ค่าเสียหาย</p></div>
+    <div class="highlight-box"><h3>🛡 คดีคุ้มครองผู้บริโภค – ฟ้องศาลออนไลน์</h3><p>บริการฟ้องคดีคุ้มครองผู้บริโภคผ่านศาลยุติธรรมแบบออนไลน์ สินค้าบกพร่อง โฆษณาเกินจริง สัญญาไม่เป็นธรรม</p></div>
+  </div>
+</div>
+
+<!-- ALL CASES -->
+<div class="page" id="page-all-cases">
+  <div class="page-header"><a class="back" href="#" onclick="showPage('home')">← หน้าแรก</a><h1>บริการของเรา</h1><p>บริการให้คำปรึกษากฎหมายครบวงจรด้วย AI และผู้เชี่ยวชาญ</p></div>
+  <div class="all-cases-section">
+    <div class="services-grid">
+      <div class="service-card"><div class="service-num">๑</div><h3>ให้คำปรึกษาด้วยระบบ AI</h3><p>ระบบ AI อัจฉริยะที่เชื่อมต่อกับฐานข้อมูลกฎหมายไทยครบทุกประเภทคดี ผ่าน NotebookLM</p><a class="service-link" href="#" onclick="showPage('ai-consult')">เริ่มปรึกษา AI →</a></div>
+      <div class="service-card"><div class="service-num">๒</div><h3>ปรึกษาโดยผู้เชี่ยวชาญ</h3><p>ทีมทนายความและผู้เชี่ยวชาญกฎหมายพร้อมให้คำปรึกษาเชิงลึก</p><a class="service-link" href="https://line.me/ti/p/surachet.a" target="_blank">💬 LINE: surachet.a →</a></div>
+      <div class="service-card"><div class="service-num">๓</div><h3>รับทำคดีฟ้องศาลออนไลน์</h3><p>รับดำเนินคดีปกครองและคดีคุ้มครองผู้บริโภคผ่านระบบออนไลน์ครบทุกขั้นตอน</p><a class="service-link" href="https://line.me/ti/p/surachet.a" target="_blank">ติดต่อยื่นฟ้องออนไลน์ →</a></div>
+      <div class="service-card"><div class="service-num">๔</div><h3>ร่างคำฟ้องและแบบฟอร์มด้วย AI</h3><p>ร่างคำฟ้อง คำร้อง และแบบฟอร์มทางกฎหมายทุกประเภทด้วย AI</p><a class="service-link" href="#" onclick="showPage('draft')">ร่างเอกสารด้วย AI →</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>⚖ SURACHET AIAMLAOR LEGAL AI CONSULTANCY</h3>
+      <p>ระบบให้คำปรึกษากฎหมายด้วย AI ที่ทันสมัย เชี่ยวชาญด้านคดีปกครอง คดีคุ้มครองผู้บริโภค คดีรัฐธรรมนูญ และคดีแรงงาน</p>
+      <br><a href="https://line.me/ti/p/surachet.a" target="_blank" style="color:var(--gold)">💬 LINE: surachet.a</a>
+    </div>
+    <div class="footer-col">
+      <h4>ประเภทคดี</h4>
+      <a href="#" onclick="showNotebook('constitution')">คดีรัฐธรรมนูญ</a>
+      <a href="#" onclick="showNotebook('admin')">คดีปกครอง</a>
+      <a href="#" onclick="showNotebook('consumer')">คดีคุ้มครองผู้บริโภค</a>
+      <a href="#" onclick="showNotebook('labor')">คดีแรงงาน</a>
+      <a href="#" onclick="showNotebook('civil')">คดีแพ่ง</a>
+      <a href="#" onclick="showNotebook('criminal')">คดีอาญา</a>
+      <a href="#" onclick="showNotebook('land')">คดีที่ดิน</a>
+      <a href="#" onclick="showNotebook('procurement')">คดีจัดซื้อจัดจ้าง</a>
+    </div>
+    <div class="footer-col">
+      <h4>บริการ</h4>
+      <a href="#" onclick="showPage('ai-consult')">ปรึกษาด้วย AI</a>
+      <a href="#" onclick="showPage('expert')">ปรึกษาผู้เชี่ยวชาญ</a>
+      <a href="#" onclick="showPage('draft')">ร่างแบบฟอร์ม AI</a>
+      <a href="#" onclick="showPage('blog')">บล็อกกฎหมาย</a>
+      <a href="#" onclick="showPage('about')">เกี่ยวกับเรา</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2568 SURACHET AIAMLAOR LEGAL AI CONSULTANCY | ให้คำปรึกษากฎหมายด้วย AI<br>
+    <span style="font-size:10px">คำปรึกษาจาก AI เป็นข้อมูลเบื้องต้น ควรปรึกษาทนายความก่อนดำเนินการทางกฎหมาย</span>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>⚖ SURACHET LEGAL AI</h2>
+    <div class="modal-tabs">
+      <div class="modal-tab active" onclick="switchTab('login')">เข้าสู่ระบบ</div>
+      <div class="modal-tab" onclick="switchTab('register')">สมัครสมาชิก</div>
+    </div>
+    <div class="modal-form active" id="form-login">
+      <button class="social-btn" onclick="loginWithGoogle()">🔵 เข้าสู่ระบบด้วย Google</button>
+      <div class="divider-text">หรือเข้าสู่ระบบด้วยอีเมล</div>
+      <input type="email" placeholder="อีเมล" id="login-email">
+      <input type="password" placeholder="รหัสผ่าน" id="login-password">
+      <button class="modal-submit" onclick="loginWithEmail()">เข้าสู่ระบบ</button>
+      <div class="modal-footer"><a onclick="switchTab('register')">ยังไม่มีบัญชี? สมัครสมาชิกฟรี</a></div>
+    </div>
+    <div class="modal-form" id="form-register">
+      <button class="social-btn" onclick="loginWithGoogle()">🔵 สมัครด้วย Google</button>
+      <div class="divider-text">หรือสมัครด้วยอีเมล</div>
+      <input type="text" placeholder="ชื่อ-นามสกุล" id="reg-name">
+      <input type="email" placeholder="อีเมล" id="reg-email">
+      <input type="password" placeholder="รหัสผ่าน" id="reg-password">
+      <button class="modal-submit" onclick="registerWithEmail()">สมัครสมาชิกฟรี</button>
+      <div class="modal-footer"><a onclick="switchTab('login')">มีบัญชีแล้ว? เข้าสู่ระบบ</a></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script>
+// Firebase config — ใส่ config จริงของคุณที่นี่
+const firebaseConfig = {
+  apiKey: "AIzaSyApICejmNyMsbTvtT6z4LPE1eUlBGTriKg",
+  authDomain: "surachet-legal-ai.firebaseapp.com",
+  projectId: "surachet-legal-ai",
+  storageBucket: "surachet-legal-ai.firebasestorage.app",
+  messagingSenderId: "535548060741",
+  appId: "1:535548060741:web:0e36dc548c40e2dc726f2c",
+  measurementId: "G-33WRMZ0XX4"
+};
+try { firebase.initializeApp(firebaseConfig); } catch(e){}
+
+var isLoggedIn = false;
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById('page-'+id);
+  if(el){el.classList.add('active');window.scrollTo(0,0)}
+}
+
+function showNotebook(type){
+  const map={land:'land',admin:'admin',consumer:'consumer',civil:'civil',criminal:'criminal',constitution:'constitution',labor:'labor',procurement:'procurement'};
+  showPage(map[type]||'home');
+}
+
+// ปรึกษา AI ต้องสมัครสมาชิกก่อนเท่านั้น
+function goToAIConsult(){
+  if(isLoggedIn && localStorage.getItem('isMember')==='true'){
+    showPage('ai-consult');
+  } else if(isLoggedIn){
+    alert('กรุณาสมัครสมาชิกก่อนใช้บริการปรึกษา AI\nกดปุ่ม "สมัครสมาชิก" มุมบนขวา');
+    openModal('register');
+  } else {
+    sessionStorage.setItem('afterLogin','ai-consult');
+    openModal('register');
+  }
+}
+
+function openModal(tab){
+  document.getElementById('modalOverlay').classList.add('open');
+  switchTab(tab||'login');
+}
+function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); }
+function closeModalOutside(e){ if(e.target===document.getElementById('modalOverlay')) closeModal(); }
+function switchTab(tab){
+  document.querySelectorAll('.modal-tab').forEach((t,i)=>t.classList.toggle('active',i===(tab==='register'?1:0)));
+  document.getElementById('form-login').classList.toggle('active',tab==='login');
+  document.getElementById('form-register').classList.toggle('active',tab==='register');
+}
+
+function setLoggedIn(name, isMember){
+  isLoggedIn=true;
+  closeModal();
+  document.getElementById('navAuth').style.display='none';
+  document.getElementById('userMenu').style.display='block';
+  document.getElementById('userBtn').textContent=(name||'ผู้ใช้')+' ▾';
+  if(isMember) localStorage.setItem('isMember','true');
+  const after=sessionStorage.getItem('afterLogin');
+  if(after){
+    sessionStorage.removeItem('afterLogin');
+    if(isMember){ showPage(after); }
+    else{ alert('กรุณาสมัครสมาชิกก่อนใช้บริการปรึกษา AI'); openModal('register'); }
+  }
+}
+
+function loginWithGoogle(){
+  const isRegisterTab = document.getElementById('form-register').classList.contains('active');
+  try{
+    const provider=new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(r=>{
+      setLoggedIn(r.user.displayName, isRegisterTab);
+    }).catch(e=>alert('เข้าสู่ระบบไม่สำเร็จ: '+e.message));
+  } catch(e){ alert('กรุณาตั้งค่า Firebase ก่อนใช้งาน Google Login'); }
+}
+
+function loginWithEmail(){
+  const email=document.getElementById('login-email').value;
+  const pass=document.getElementById('login-password').value;
+  if(!email||!pass){ alert('กรุณากรอกอีเมลและรหัสผ่าน'); return; }
+  try{
+    firebase.auth().signInWithEmailAndPassword(email,pass).then(r=>setLoggedIn(r.user.displayName||email, false)).catch(e=>alert('เข้าสู่ระบบไม่สำเร็จ: '+e.message));
+  } catch(e){ setLoggedIn(email, false); }
+}
+
+function registerWithEmail(){
+  const name=document.getElementById('reg-name').value;
+  const email=document.getElementById('reg-email').value;
+  const pass=document.getElementById('reg-password').value;
+  if(!name||!email||!pass){ alert('กรุณากรอกข้อมูลให้ครบ'); return; }
+  try{
+    firebase.auth().createUserWithEmailAndPassword(email,pass).then(r=>{ r.user.updateProfile({displayName:name}); setLoggedIn(name, true); }).catch(e=>alert('สมัครสมาชิกไม่สำเร็จ: '+e.message));
+  } catch(e){ setLoggedIn(name, true); }
+}
+
+function logout(){
+  isLoggedIn=false;
+  try{ firebase.auth().signOut(); } catch(e){}
+  document.getElementById('navAuth').style.display='flex';
+  document.getElementById('userMenu').style.display='none';
+}
+</script>
+</body>
+</html>
