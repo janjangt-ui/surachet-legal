@@ -716,22 +716,15 @@ footer{background:var(--dark2);border-top:1px solid var(--border);padding:3rem 2
   </div>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyApICejmNyMsbTvtT6z4LPE1eUlBGTriKg",
-  authDomain: "janjangt-ui.github.io",
-  projectId: "surachet-legal-ai",
-  storageBucket: "surachet-legal-ai.firebasestorage.app",
-  messagingSenderId: "535548060741",
-  appId: "1:535548060741:web:0e36dc548c40e2dc726f2c",
-  measurementId: "G-33WRMZ0XX4"
-};
-try { firebase.initializeApp(firebaseConfig); } catch(e){}
-
 var isLoggedIn = false;
 var pendingUrl = null;
+
+// โหลดข้อมูล login จาก localStorage
+window.onload = function(){
+  const saved = localStorage.getItem('surachet_user');
+  if(saved){ setLoggedIn(saved, true); }
+}
 
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -744,23 +737,16 @@ function showNotebook(type){
   showPage(map[type]||'home');
 }
 
-// ทุกหน้า AI ต้องสมัครสมาชิกก่อน
 function goToNotebook(type){
   const map={land:'land',admin:'admin',consumer:'consumer',civil:'civil',criminal:'criminal',constitution:'constitution',labor:'labor',procurement:'procurement'};
   showPage(map[type]||'home');
 }
 
-// ปรึกษา AI ต้องล็อกอินก่อน
 function goToAIConsult(){
-  if(isLoggedIn){
-    showPage('ai-consult');
-  } else {
-    sessionStorage.setItem('afterLogin','ai-consult');
-    openModal('register');
-  }
+  if(isLoggedIn){ showPage('ai-consult'); }
+  else { sessionStorage.setItem('afterLogin','ai-consult'); openModal('register'); }
 }
 
-// คลิกลิงก์ notebook ต้องล็อกอินก่อน
 function requireLogin(url){
   if(isLoggedIn){
     if(url && url !== '#') window.open(url,'_blank');
@@ -784,8 +770,9 @@ function switchTab(tab){
   document.getElementById('form-register').classList.toggle('active',tab==='register');
 }
 
-function setLoggedIn(name){
+function setLoggedIn(name, skipSave){
   isLoggedIn=true;
+  if(!skipSave) localStorage.setItem('surachet_user', name);
   closeModal();
   document.getElementById('navAuth').style.display='none';
   document.getElementById('userMenu').style.display='block';
@@ -800,21 +787,19 @@ function setLoggedIn(name){
 }
 
 function loginWithGoogle(){
-  try{
-    const provider=new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(r=>{
-      setLoggedIn(r.user.displayName);
-    }).catch(e=>alert('เข้าสู่ระบบไม่สำเร็จ: '+e.message));
-  } catch(e){ alert('กรุณาตั้งค่า Firebase ก่อนใช้งาน Google Login'); }
+  alert('ขณะนี้ Google Login ไม่พร้อมใช้งาน กรุณาใช้อีเมลและรหัสผ่านแทนครับ');
 }
 
 function loginWithEmail(){
   const email=document.getElementById('login-email').value;
   const pass=document.getElementById('login-password').value;
   if(!email||!pass){ alert('กรุณากรอกอีเมลและรหัสผ่าน'); return; }
-  try{
-    firebase.auth().signInWithEmailAndPassword(email,pass).then(r=>setLoggedIn(r.user.displayName||email)).catch(e=>alert('เข้าสู่ระบบไม่สำเร็จ: '+e.message));
-  } catch(e){ setLoggedIn(email); }
+  const users = JSON.parse(localStorage.getItem('surachet_users')||'{}');
+  if(users[email] && users[email].pass===pass){
+    setLoggedIn(users[email].name);
+  } else {
+    alert('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
+  }
 }
 
 function registerWithEmail(){
@@ -822,17 +807,20 @@ function registerWithEmail(){
   const email=document.getElementById('reg-email').value;
   const pass=document.getElementById('reg-password').value;
   if(!name||!email||!pass){ alert('กรุณากรอกข้อมูลให้ครบ'); return; }
-  try{
-    firebase.auth().createUserWithEmailAndPassword(email,pass).then(r=>{ r.user.updateProfile({displayName:name}); setLoggedIn(name); }).catch(e=>alert('สมัครสมาชิกไม่สำเร็จ: '+e.message));
-  } catch(e){ setLoggedIn(name); }
+  if(pass.length < 6){ alert('รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร'); return; }
+  const users = JSON.parse(localStorage.getItem('surachet_users')||'{}');
+  if(users[email]){ alert('อีเมลนี้ถูกใช้งานแล้ว'); return; }
+  users[email] = {name, pass};
+  localStorage.setItem('surachet_users', JSON.stringify(users));
+  setLoggedIn(name);
 }
 
 function logout(){
   isLoggedIn=false;
-  try{ firebase.auth().signOut(); } catch(e){}
+  localStorage.removeItem('surachet_user');
   document.getElementById('navAuth').style.display='flex';
   document.getElementById('userMenu').style.display='none';
 }
-  </script>
+</script>
 </body>
 </html>
