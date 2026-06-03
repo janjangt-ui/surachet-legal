@@ -150,6 +150,11 @@ footer{background:var(--dark2);border-top:1px solid var(--border);padding:36px 2
 .ft-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--gold);margin-bottom:6px;}
 footer p{font-size:12.5px;color:var(--muted);}
 
+/* ===== LANG TOGGLE ===== */
+.lang-btn{display:flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Sarabun',sans-serif;transition:border-color .2s,color .2s;}
+.lang-btn:hover{border-color:var(--gold);color:var(--gold);}
+.lang-btn .flag{font-size:14px;}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:900px){
   .nav-menu{display:none;}
@@ -172,16 +177,16 @@ footer p{font-size:12.5px;color:var(--muted);}
 
     <div class="nav-menu">
       <div class="nav-item">
-        <div class="nav-link active" id="nav-home" onclick="showPage('home')">หน้าแรก</div>
+        <div class="nav-link active" id="nav-home" onclick="showPage('home')" data-th="หน้าแรก" data-en="Home">หน้าแรก</div>
       </div>
 
       <div class="nav-item">
-        <div class="nav-link" onclick="showPage('about')">เกี่ยวกับเรา</div>
+        <div class="nav-link" onclick="showPage('about')" data-th="เกี่ยวกับเรา" data-en="About Us">เกี่ยวกับเรา</div>
       </div>
 
       <!-- คดีปกครอง dropdown -->
       <div class="nav-item">
-        <div class="nav-link" onclick="showPage('admin-case')">คดีปกครอง
+        <div class="nav-link" onclick="showPage('admin-case')" data-th="คดีปกครอง" data-en="Administrative Case">คดีปกครอง
           <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg>
         </div>
         <div class="dropdown">
@@ -196,7 +201,7 @@ footer p{font-size:12.5px;color:var(--muted);}
 
       <!-- คดีคุ้มครองผู้บริโภค dropdown -->
       <div class="nav-item">
-        <div class="nav-link" onclick="showPage('consumer')">คดีคุ้มครองผู้บริโภค
+        <div class="nav-link" onclick="showPage('consumer')" data-th="คดีคุ้มครองผู้บริโภค" data-en="Consumer Protection">คดีคุ้มครองผู้บริโภค
           <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg>
         </div>
         <div class="dropdown">
@@ -211,7 +216,7 @@ footer p{font-size:12.5px;color:var(--muted);}
 
       <!-- คดีแพ่ง dropdown -->
       <div class="nav-item">
-        <div class="nav-link" onclick="showPage('civil')">คดีแพ่ง
+        <div class="nav-link" onclick="showPage('civil')" data-th="คดีแพ่ง" data-en="Civil Case">คดีแพ่ง
           <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg>
         </div>
         <div class="dropdown">
@@ -228,7 +233,7 @@ footer p{font-size:12.5px;color:var(--muted);}
 
       <!-- คดีอาญา dropdown -->
       <div class="nav-item">
-        <div class="nav-link" onclick="showPage('criminal')">คดีอาญา
+        <div class="nav-link" onclick="showPage('criminal')" data-th="คดีอาญา" data-en="Criminal Case">คดีอาญา
           <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg>
         </div>
         <div class="dropdown">
@@ -244,7 +249,7 @@ footer p{font-size:12.5px;color:var(--muted);}
 
       <!-- บริการของเรา dropdown -->
       <div class="nav-item">
-        <div class="nav-link" onclick="showPage('services')">บริการของเรา
+        <div class="nav-link" onclick="showPage('services')" data-th="บริการของเรา" data-en="Our Services">บริการของเรา
           <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg>
         </div>
         <div class="dropdown">
@@ -260,8 +265,9 @@ footer p{font-size:12.5px;color:var(--muted);}
 
     <div class="nav-right">
       <span id="userDisplay" style="display:none;"></span>
-      <button class="btn-logout" id="btnLogout" style="display:none;" onclick="doLogout()">ออกจากระบบ</button>
-      <button class="btn-login" id="btnLogin" onclick="showPage('login')">เข้าสู่ระบบ</button>
+      <button class="btn-logout" id="btnLogout" style="display:none;" onclick="doLogout()" data-th="ออกจากระบบ" data-en="Sign Out">ออกจากระบบ</button>
+      <button class="btn-login" id="btnLogin" onclick="showPage('login')" data-th="เข้าสู่ระบบ" data-en="Sign In">เข้าสู่ระบบ</button>
+      <button class="lang-btn" id="langToggle" onclick="toggleLang()"><span class="flag" id="langFlag">🇺🇸</span><span id="langLabel">EN</span></button>
     </div>
 
     <div class="hamburger" onclick="toggleMenu()">
@@ -290,55 +296,55 @@ footer p{font-size:12.5px;color:var(--muted);}
 <div id="page-home" class="page active">
   <div class="hero">
     <div class="hero-inner">
-      <div class="hero-badge">LEGAL AI CONSULTANCY</div>
+      <div class="hero-badge" id="hero-badge-el">LEGAL AI CONSULTANCY</div>
       <h1>SURACHET AIAMLAOR<br><span>LEGAL AI</span></h1>
-      <p class="hero-sub">ที่ปรึกษากฎหมายด้วยระบบ AI ครบวงจร คดีปกครอง คดีคุ้มครองผู้บริโภค คดีแพ่ง คดีอาญา และกฎหมายมหาชน</p>
+      <p class="hero-sub" id="hero-sub-el">ที่ปรึกษากฎหมายด้วยระบบ AI ครบวงจร คดีปกครอง คดีคุ้มครองผู้บริโภค คดีแพ่ง คดีอาญา และกฎหมายมหาชน</p>
 
       <!-- Notice Box -->
       <div class="notice-box">
-        <h3>📋 คำแนะนำก่อนใช้บริการ</h3>
+        <h3 id="notice-title-el">📋 คำแนะนำก่อนใช้บริการ</h3>
         <div class="notice-row">
           <span class="notice-icon notice-lock">🔒</span>
-          <span>บริการ <strong style="color:#e8c97e;">ให้คำปรึกษาด้วยระบบ AI</strong> และ <strong style="color:#e8c97e;">ร่างคำฟ้องด้วยระบบ AI</strong> — <strong style="color:#e8a84c;">ต้องสมัครสมาชิกก่อนจึงจะใช้บริการได้</strong></span>
+          <span id="notice-lock-el">บริการ <strong style="color:#e8c97e;">ให้คำปรึกษาด้วยระบบ AI</strong> และ <strong style="color:#e8c97e;">ร่างคำฟ้องด้วยระบบ AI</strong> — <strong style="color:#e8a84c;">ต้องสมัครสมาชิกก่อนจึงจะใช้บริการได้</strong></span>
         </div>
         <div class="notice-row">
           <span class="notice-icon notice-free">✅</span>
-          <span>บริการ <strong style="color:#e8c97e;">ปรึกษาโดยผู้เชี่ยวชาญ</strong> และ <strong style="color:#e8c97e;">รับทำคดีออนไลน์</strong> — <strong style="color:#5cb85c;">สามารถใช้บริการได้โดยไม่ต้องสมัครสมาชิก</strong></span>
+          <span id="notice-free-el">บริการ <strong style="color:#e8c97e;">ปรึกษาโดยผู้เชี่ยวชาญ</strong> และ <strong style="color:#e8c97e;">รับทำคดีออนไลน์</strong> — <strong style="color:#5cb85c;">สามารถใช้บริการได้โดยไม่ต้องสมัครสมาชิก</strong></span>
         </div>
         <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);">
-          <button onclick="showPage('login')" style="background:var(--gold);color:#111;border:none;border-radius:4px;padding:9px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;">สมัครสมาชิก / เข้าสู่ระบบ</button>
+          <button onclick="showPage('login')" id="btn-register-el" style="background:var(--gold);color:#111;border:none;border-radius:4px;padding:9px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Sarabun',sans-serif;">สมัครสมาชิก / เข้าสู่ระบบ</button>
         </div>
       </div>
 
       <div class="svc-grid">
         <div class="svc-card" id="card-ai" onclick="checkAndGo('ai')">
           <div class="svc-num">๓.๑</div>
-          <div class="svc-title">ให้คำปรึกษาด้วยระบบ AI</div>
-          <div class="svc-desc">เชื่อมต่อไปทุกหน้าเพจคดีและกฎหมาย</div>
+          <div class="svc-title" id="svc1-title-el">ให้คำปรึกษาด้วยระบบ AI</div>
+          <div class="svc-desc" id="svc1-desc-el">เชื่อมต่อไปทุกหน้าเพจคดีและกฎหมาย</div>
           <span class="svc-badge badge-member" id="badge-ai">🔒 ต้องสมัครสมาชิก</span>
         </div>
         <div class="svc-card" onclick="window.open('https://line.me/ti/p/~surachet.a','_blank')">
           <div class="svc-num">๓.๒</div>
-          <div class="svc-title">ปรึกษาโดยผู้เชี่ยวชาญ</div>
-          <div class="svc-desc">ติดต่อผ่าน LINE: surachet.a</div>
+          <div class="svc-title" id="svc2-title-el">ปรึกษาโดยผู้เชี่ยวชาญ</div>
+          <div class="svc-desc" id="svc2-desc-el">ติดต่อผ่าน LINE: surachet.a</div>
           <span class="svc-badge badge-free">✅ ไม่ต้องสมัครสมาชิก</span>
         </div>
         <div class="svc-card" onclick="window.open('https://line.me/ti/p/~surachet.a','_blank')">
           <div class="svc-num">๓.๓</div>
-          <div class="svc-title">รับทำคดีออนไลน์</div>
-          <div class="svc-desc">คดีปกครองและคดีคุ้มครองผู้บริโภคฟ้องศาลออนไลน์</div>
+          <div class="svc-title" id="svc3-title-el">รับทำคดีออนไลน์</div>
+          <div class="svc-desc" id="svc3-desc-el">คดีปกครองและคดีคุ้มครองผู้บริโภคฟ้องศาลออนไลน์</div>
           <span class="svc-badge badge-free">✅ ไม่ต้องสมัครสมาชิก</span>
         </div>
         <div class="svc-card" id="card-draft" onclick="checkAndGo('draft')">
           <div class="svc-num">๓.๔</div>
-          <div class="svc-title">ร่างคำฟ้องด้วยระบบ AI</div>
-          <div class="svc-desc">แบบฟอร์มทนายความในศาล พร้อมผู้เชี่ยวชาญตรวจสอบ</div>
+          <div class="svc-title" id="svc4-title-el">ร่างคำฟ้องด้วยระบบ AI</div>
+          <div class="svc-desc" id="svc4-desc-el">แบบฟอร์มทนายความในศาล พร้อมผู้เชี่ยวชาญตรวจสอบ</div>
           <span class="svc-badge badge-member" id="badge-draft">🔒 ต้องสมัครสมาชิก</span>
         </div>
         <div class="svc-card" onclick="showPage('services')">
           <div class="svc-num">๓.๕</div>
-          <div class="svc-title">รวมหน้าเพจคดีและกฎหมาย</div>
-          <div class="svc-desc">ลิ้งก์ไปทุกหน้าเพจคดีและกฎหมาย</div>
+          <div class="svc-title" id="svc5-title-el">รวมหน้าเพจคดีและกฎหมาย</div>
+          <div class="svc-desc" id="svc5-desc-el">ลิ้งก์ไปทุกหน้าเพจคดีและกฎหมาย</div>
           <span class="svc-badge badge-free">✅ เข้าถึงได้เสรี</span>
         </div>
       </div>
@@ -348,13 +354,13 @@ footer p{font-size:12.5px;color:var(--muted);}
   <!-- Case Grid Section -->
   <div class="section">
     <div class="sec-head">
-      <div class="sec-title">หมวดคดีและ<span>กฎหมาย</span></div>
+      <div class="sec-title" id="sec-cases-el">หมวดคดีและ<span>กฎหมาย</span></div>
       <div class="sec-line"></div>
     </div>
     <div class="case-grid">
 
       <div class="case-card">
-        <div class="case-head"><div class="case-name">คดีรัฐธรรมนูญ</div><div class="case-count">๙ รายการ</div></div>
+        <div class="case-head"><div class="case-name" data-case="case-constitution">คดีรัฐธรรมนูญ</div><div class="case-count" data-count="๙">๙ รายการ</div></div>
         <div class="case-links">
           <a class="cl" href="https://notebooklm.google.com/notebook/145c1038-1792-4f6b-88e9-f1e5236d90ec" target="_blank"><span class="cl-n">๑.</span><span>คดีรัฐธรรมนูญ</span><span class="cl-arr">↗</span></a>
           <a class="cl" href="https://notebooklm.google.com/notebook/291d78d0-b2da-4bdf-997c-8c1a6ff48d7a" target="_blank"><span class="cl-n">๒.</span><span>คดีรัฐธรรมนูญ</span><span class="cl-arr">↗</span></a>
@@ -369,7 +375,7 @@ footer p{font-size:12.5px;color:var(--muted);}
       </div>
 
       <div class="case-card">
-        <div class="case-head"><div class="case-name">คดีปกครอง</div><div class="case-count">๔ รายการ</div></div>
+        <div class="case-head"><div class="case-name" data-case="case-admin">คดีปกครอง</div><div class="case-count" data-count="๔">๔ รายการ</div></div>
         <div class="case-links">
           <a class="cl" href="https://notebooklm.google.com/notebook/145c1038-1792-4f6b-88e9-f1e5236d90ec" target="_blank"><span class="cl-n">๑.</span><span>คดีปกครอง</span><span class="cl-arr">↗</span></a>
           <a class="cl" href="https://notebooklm.google.com/notebook/93a991ec-c30a-4a42-b15f-773807c93d81" target="_blank"><span class="cl-n">๒.</span><span>คดีปกครอง</span><span class="cl-arr">↗</span></a>
@@ -379,7 +385,7 @@ footer p{font-size:12.5px;color:var(--muted);}
       </div>
 
       <div class="case-card">
-        <div class="case-head"><div class="case-name">คดีคุ้มครองผู้บริโภค</div><div class="case-count">๔ รายการ</div></div>
+        <div class="case-head"><div class="case-name" data-case="case-consumer">คดีคุ้มครองผู้บริโภค</div><div class="case-count" data-count="๔">๔ รายการ</div></div>
         <div class="case-links">
           <a class="cl" href="https://notebooklm.google.com/notebook/b3179b87-7683-45ef-8e3e-776264e31c8e" target="_blank"><span class="cl-n">๑.</span><span>คดีคุ้มครองผู้บริโภค</span><span class="cl-arr">↗</span></a>
           <a class="cl" href="https://notebooklm.google.com/notebook/b3179b87-7683-45ef-8e3e-776264e31c8e" target="_blank"><span class="cl-n">๒.</span><span>คดีคุ้มครองผู้บริโภค</span><span class="cl-arr">↗</span></a>
@@ -389,7 +395,7 @@ footer p{font-size:12.5px;color:var(--muted);}
       </div>
 
       <div class="case-card">
-        <div class="case-head"><div class="case-name">คดีแพ่ง</div><div class="case-count">๔ รายการ</div></div>
+        <div class="case-head"><div class="case-name" data-case="case-civil">คดีแพ่ง</div><div class="case-count" data-count="๔">๔ รายการ</div></div>
         <div class="case-links">
           <a class="cl" href="https://notebooklm.google.com/notebook/ae4721c4-c1dc-4623-98e7-d2d4e30c321a" target="_blank"><span class="cl-n">๑.</span><span>คดีแพ่ง</span><span class="cl-arr">↗</span></a>
           <a class="cl" href="https://notebooklm.google.com/notebook/ae4721c4-c1dc-4623-98e7-d2d4e30c321a" target="_blank"><span class="cl-n">๒.</span><span>คดีแพ่ง</span><span class="cl-arr">↗</span></a>
@@ -399,7 +405,7 @@ footer p{font-size:12.5px;color:var(--muted);}
       </div>
 
       <div class="case-card">
-        <div class="case-head"><div class="case-name">คดีอาญา</div><div class="case-count">๑๒ รายการ</div></div>
+        <div class="case-head"><div class="case-name" data-case="case-criminal">คดีอาญา</div><div class="case-count" data-count="๑๒">๑๒ รายการ</div></div>
         <div class="case-links">
           <a class="cl" href="https://notebooklm.google.com/notebook/15c72a93-4d36-4f83-ac48-06044df62f1e" target="_blank"><span class="cl-n">๑.</span><span>คดีอาญา</span><span class="cl-arr">↗</span></a>
           <a class="cl" href="https://notebooklm.google.com/notebook/aed6f144-16c8-404c-9ee8-a3491d64d24d" target="_blank"><span class="cl-n">๒.</span><span>คดีอาญา</span><span class="cl-arr">↗</span></a>
@@ -417,7 +423,7 @@ footer p{font-size:12.5px;color:var(--muted);}
       </div>
 
       <div class="case-card">
-        <div class="case-head"><div class="case-name">คดีที่ดิน</div><div class="case-count">๕ รายการ</div></div>
+        <div class="case-head"><div class="case-name" data-case="case-land">คดีที่ดิน</div><div class="case-count" data-count="๕">๕ รายการ</div></div>
         <div class="case-links">
           <a class="cl" href="https://notebooklm.google.com/notebook/56e4afc6-b703-4893-a0a1-530faab6b95f" target="_blank"><span class="cl-n">๑.</span><span>คดีที่ดิน</span><span class="cl-arr">↗</span></a>
           <a class="cl" href="https://notebooklm.google.com/notebook/56e4afc6-b703-4893-a0a1-530faab6b95f" target="_blank"><span class="cl-n">๒.</span><span>คดีที่ดิน</span><span class="cl-arr">↗</span></a>
@@ -428,7 +434,7 @@ footer p{font-size:12.5px;color:var(--muted);}
       </div>
 
       <div class="case-card">
-        <div class="case-head"><div class="case-name">คดีจัดซื้อจัดจ้าง</div><div class="case-count">๘ รายการ</div></div>
+        <div class="case-head"><div class="case-name" data-case="case-procurement">คดีจัดซื้อจัดจ้าง</div><div class="case-count" data-count="๘">๘ รายการ</div></div>
         <div class="case-links">
           <a class="cl" href="https://notebooklm.google.com/notebook/259938f4-2e85-4f08-a3d1-75937ed59ad4" target="_blank"><span class="cl-n">๑.</span><span>คดีจัดซื้อจัดจ้าง</span><span class="cl-arr">↗</span></a>
           <a class="cl" href="https://notebooklm.google.com/notebook/259938f4-2e85-4f08-a3d1-75937ed59ad4" target="_blank"><span class="cl-n">๒.</span><span>คดีจัดซื้อจัดจ้าง</span><span class="cl-arr">↗</span></a>
@@ -442,7 +448,7 @@ footer p{font-size:12.5px;color:var(--muted);}
       </div>
 
       <div class="case-card">
-        <div class="case-head"><div class="case-name">กฎหมายวิธีปฏิบัติราชการทางปกครอง</div><div class="case-count">๘ รายการ</div></div>
+        <div class="case-head"><div class="case-name" data-case="case-adminlaw">กฎหมายวิธีปฏิบัติราชการทางปกครอง</div><div class="case-count" data-count="๘">๘ รายการ</div></div>
         <div class="case-links">
           <a class="cl" href="https://notebooklm.google.com/notebook/dfef7bcb-5227-4f8d-bdca-d40fe8fce07d" target="_blank"><span class="cl-n">๑.</span><span>กฎหมายวิธีปฏิบัติราชการทางปกครอง</span><span class="cl-arr">↗</span></a>
           <a class="cl" href="https://notebooklm.google.com/notebook/06d91d42-0dc3-4ad6-9bb2-28f0dc4c9044" target="_blank"><span class="cl-n">๒.</span><span>กฎหมายวิธีปฏิบัติราชการทางปกครอง</span><span class="cl-arr">↗</span></a>
@@ -456,7 +462,7 @@ footer p{font-size:12.5px;color:var(--muted);}
       </div>
 
       <div class="case-card">
-        <div class="case-head"><div class="case-name">กฎหมายความรับผิดทางละเมิด</div><div class="case-count">๘ รายการ</div></div>
+        <div class="case-head"><div class="case-name" data-case="case-tort">กฎหมายความรับผิดทางละเมิด</div><div class="case-count" data-count="๘">๘ รายการ</div></div>
         <div class="case-links">
           <a class="cl" href="https://notebooklm.google.com/notebook/4b254f6b-ec02-4a7b-bb80-d8b9ede69d65" target="_blank"><span class="cl-n">๑.</span><span>กฎหมายความรับผิดทางละเมิดของเจ้าหน้าที่</span><span class="cl-arr">↗</span></a>
           <a class="cl" href="https://notebooklm.google.com/notebook/4b254f6b-ec02-4a7b-bb80-d8b9ede69d65" target="_blank"><span class="cl-n">๒.</span><span>กฎหมายความรับผิดทางละเมิดของเจ้าหน้าที่</span><span class="cl-arr">↗</span></a>
@@ -470,7 +476,7 @@ footer p{font-size:12.5px;color:var(--muted);}
       </div>
 
       <div class="case-card">
-        <div class="case-head"><div class="case-name">กฎหมายมหาชน / มอบอำนาจ / ตีความ</div><div class="case-count">๙ รายการ</div></div>
+        <div class="case-head"><div class="case-name" data-case="case-public">กฎหมายมหาชน / มอบอำนาจ / ตีความ</div><div class="case-count" data-count="๙">๙ รายการ</div></div>
         <div class="case-links">
           <a class="cl" href="https://notebooklm.google.com/notebook/04478bec-a04a-45dd-8f5e-0b664201ffff" target="_blank"><span class="cl-n">๑.</span><span>กฎหมายมหาชน</span><span class="cl-arr">↗</span></a>
           <a class="cl" href="https://notebooklm.google.com/notebook/04478bec-a04a-45dd-8f5e-0b664201ffff" target="_blank"><span class="cl-n">๒.</span><span>กฎหมายมหาชน</span><span class="cl-arr">↗</span></a>
@@ -483,7 +489,7 @@ footer p{font-size:12.5px;color:var(--muted);}
       </div>
 
       <div class="case-card">
-        <div class="case-head"><div class="case-name">กฎหมายบริหารราชการแผ่นดิน / บุคคล</div><div class="case-count">๑๐ รายการ</div></div>
+        <div class="case-head"><div class="case-name" data-case="case-personnel">กฎหมายบริหารราชการแผ่นดิน / บุคคล</div><div class="case-count" data-count="๑๐">๑๐ รายการ</div></div>
         <div class="case-links">
           <a class="cl" href="https://notebooklm.google.com/notebook/1633c73a-2832-49ef-91bd-1fc162ab5d15" target="_blank"><span class="cl-n">๑.</span><span>กฎหมายการบริหารราชการแผ่นดิน</span><span class="cl-arr">↗</span></a>
           <a class="cl" href="https://notebooklm.google.com/notebook/42c75ed2-1d2b-484a-898c-64d2e82d0377" target="_blank"><span class="cl-n">๒.</span><span>กฎหมายการบริหารราชการแผ่นดิน</span><span class="cl-arr">↗</span></a>
@@ -499,7 +505,7 @@ footer p{font-size:12.5px;color:var(--muted);}
       </div>
 
       <div class="case-card">
-        <div class="case-head"><div class="case-name">กฎหมายบังคับคดี / องค์กรอิสระ / ท้องถิ่น</div><div class="case-count">๑๐ รายการ</div></div>
+        <div class="case-head"><div class="case-name" data-case="case-enforce">กฎหมายบังคับคดี / องค์กรอิสระ / ท้องถิ่น</div><div class="case-count" data-count="๑๐">๑๐ รายการ</div></div>
         <div class="case-links">
           <a class="cl" href="https://notebooklm.google.com/notebook/1b1b3671-4780-4d37-8359-46548bf3e054" target="_blank"><span class="cl-n">๑.</span><span>กฎหมายการบังคับคดีและวิธีการชั่วคราว</span><span class="cl-arr">↗</span></a>
           <a class="cl" href="https://notebooklm.google.com/notebook/51d5c7d0-ec9c-4700-8f9f-f597f84d7de2" target="_blank"><span class="cl-n">๒.</span><span>กฎหมายการบังคับคดีและวิธีการชั่วคราว</span><span class="cl-arr">↗</span></a>
@@ -770,6 +776,139 @@ function checkAndGo(type){
     return;
   }
   showPage('services');
+}
+
+// ===== LANGUAGE SYSTEM =====
+let currentLang = 'th';
+
+const translations = {
+  th: {
+    // Navbar
+    'nav-home': 'หน้าแรก', 'nav-about': 'เกี่ยวกับเรา',
+    'nav-admin': 'คดีปกครอง', 'nav-consumer': 'คดีคุ้มครองผู้บริโภค',
+    'nav-civil': 'คดีแพ่ง', 'nav-criminal': 'คดีอาญา', 'nav-services': 'บริการของเรา',
+    'btn-login': 'เข้าสู่ระบบ', 'btn-logout': 'ออกจากระบบ',
+    // Hero
+    'hero-badge': 'LEGAL AI CONSULTANCY',
+    'hero-sub': 'ที่ปรึกษากฎหมายด้วยระบบ AI ครบวงจร คดีปกครอง คดีคุ้มครองผู้บริโภค คดีแพ่ง คดีอาญา และกฎหมายมหาชน',
+    'notice-title': '📋 คำแนะนำก่อนใช้บริการ',
+    'notice-lock-text': 'บริการ ให้คำปรึกษาด้วยระบบ AI และ ร่างคำฟ้องด้วยระบบ AI — ต้องสมัครสมาชิกก่อนจึงจะใช้บริการได้',
+    'notice-free-text': 'บริการ ปรึกษาโดยผู้เชี่ยวชาญ และ รับทำคดีออนไลน์ — สามารถใช้บริการได้โดยไม่ต้องสมัครสมาชิก',
+    'btn-register': 'สมัครสมาชิก / เข้าสู่ระบบ',
+    // Service cards
+    'svc1-title': 'ให้คำปรึกษาด้วยระบบ AI', 'svc1-desc': 'เชื่อมต่อไปทุกหน้าเพจคดีและกฎหมาย',
+    'svc2-title': 'ปรึกษาโดยผู้เชี่ยวชาญ', 'svc2-desc': 'ติดต่อผ่าน LINE: surachet.a',
+    'svc3-title': 'รับทำคดีออนไลน์', 'svc3-desc': 'คดีปกครองและคดีคุ้มครองผู้บริโภคฟ้องศาลออนไลน์',
+    'svc4-title': 'ร่างคำฟ้องด้วยระบบ AI', 'svc4-desc': 'แบบฟอร์มทนายความในศาล พร้อมผู้เชี่ยวชาญตรวจสอบ',
+    'svc5-title': 'รวมหน้าเพจคดีและกฎหมาย', 'svc5-desc': 'ลิ้งก์ไปทุกหน้าเพจคดีและกฎหมาย',
+    'badge-member': '🔒 ต้องสมัครสมาชิก', 'badge-free': '✅ ไม่ต้องสมัครสมาชิก',
+    'badge-member-ok': '✅ สมาชิก — เข้าใช้ได้เลย', 'badge-access': '✅ เข้าถึงได้เสรี',
+    // Section titles
+    'sec-cases': 'หมวดคดีและกฎหมาย',
+    // Login page
+    'login-title': 'เข้าสู่ระบบ', 'login-btn-google': 'เข้าสู่ระบบด้วย Google',
+    'login-notice1': '🔒 ต้องสมัครสมาชิกก่อน จึงจะใช้บริการ "ให้คำปรึกษาด้วยระบบ AI" และ "ร่างคำฟ้องด้วยระบบ AI" ได้',
+    'login-notice2': '✅ ไม่ต้องสมัครสมาชิก สำหรับบริการ "ปรึกษาโดยผู้เชี่ยวชาญ" และ "รับทำคดีออนไลน์"',
+    // Footer
+    'footer-line': 'LINE: surachet.a',
+    // Case names
+    'case-constitution': 'คดีรัฐธรรมนูญ', 'case-admin': 'คดีปกครอง',
+    'case-consumer': 'คดีคุ้มครองผู้บริโภค', 'case-civil': 'คดีแพ่ง',
+    'case-criminal': 'คดีอาญา', 'case-land': 'คดีที่ดิน',
+    'case-procurement': 'คดีจัดซื้อจัดจ้าง',
+    'case-adminlaw': 'กฎหมายวิธีปฏิบัติราชการทางปกครอง',
+    'case-tort': 'กฎหมายความรับผิดทางละเมิด',
+    'case-public': 'กฎหมายมหาชน / มอบอำนาจ / ตีความ',
+    'case-personnel': 'กฎหมายบริหารราชการแผ่นดิน / บุคคล',
+    'case-enforce': 'กฎหมายบังคับคดี / องค์กรอิสระ / ท้องถิ่น',
+    'items': 'รายการ'
+  },
+  en: {
+    'nav-home': 'Home', 'nav-about': 'About Us',
+    'nav-admin': 'Administrative', 'nav-consumer': 'Consumer Protection',
+    'nav-civil': 'Civil Case', 'nav-criminal': 'Criminal Case', 'nav-services': 'Our Services',
+    'btn-login': 'Sign In', 'btn-logout': 'Sign Out',
+    'hero-badge': 'LEGAL AI CONSULTANCY',
+    'hero-sub': 'Comprehensive AI-powered legal consultation for Administrative, Consumer Protection, Civil, Criminal Cases and Public Law.',
+    'notice-title': '📋 Service Guidelines',
+    'notice-lock-text': 'Services "AI Legal Consultation" and "AI Pleading Draft" — Membership required.',
+    'notice-free-text': 'Services "Expert Consultation" and "Online Case Filing" — Available without membership.',
+    'btn-register': 'Register / Sign In',
+    'svc1-title': 'AI Legal Consultation', 'svc1-desc': 'Access all case and law pages via AI.',
+    'svc2-title': 'Expert Consultation', 'svc2-desc': 'Contact via LINE: surachet.a',
+    'svc3-title': 'Online Case Filing', 'svc3-desc': 'File Administrative and Consumer Protection cases online.',
+    'svc4-title': 'AI Pleading Draft', 'svc4-desc': 'Court pleading forms with expert review.',
+    'svc5-title': 'All Case Pages', 'svc5-desc': 'Links to all case and law pages.',
+    'badge-member': '🔒 Members Only', 'badge-free': '✅ Free Access',
+    'badge-member-ok': '✅ Member — Access Granted', 'badge-access': '✅ Free Access',
+    'sec-cases': 'Case Categories & Law',
+    'login-title': 'Sign In', 'login-btn-google': 'Sign in with Google',
+    'login-notice1': '🔒 Membership required for "AI Legal Consultation" and "AI Pleading Draft" services.',
+    'login-notice2': '✅ No membership needed for "Expert Consultation" and "Online Case Filing".',
+    'footer-line': 'LINE: surachet.a',
+    'case-constitution': 'Constitutional Cases', 'case-admin': 'Administrative Cases',
+    'case-consumer': 'Consumer Protection Cases', 'case-civil': 'Civil Cases',
+    'case-criminal': 'Criminal Cases', 'case-land': 'Land Dispute Cases',
+    'case-procurement': 'Procurement Cases',
+    'case-adminlaw': 'Administrative Procedure Law',
+    'case-tort': 'Official Tort Liability Law',
+    'case-public': 'Public Law / Delegation / Interpretation',
+    'case-personnel': 'State Administration / Personnel Law',
+    'case-enforce': 'Enforcement / Independent Org / Local Gov Law',
+    'items': 'items'
+  }
+};
+
+function toggleLang() {
+  currentLang = currentLang === 'th' ? 'en' : 'th';
+  setLang(currentLang);
+}
+
+function setLang(lang) {
+  const t = translations[lang];
+  // Toggle button
+  document.getElementById('langFlag').textContent = lang === 'th' ? '🇺🇸' : '🇹🇭';
+  document.getElementById('langLabel').textContent = lang === 'th' ? 'EN' : 'ไทย';
+  // All elements with data-th/data-en
+  document.querySelectorAll('[data-th]').forEach(el => {
+    el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en');
+  });
+  // Dynamic elements
+  const ids = {
+    'hero-badge-el': 'hero-badge', 'hero-sub-el': 'hero-sub',
+    'notice-title-el': 'notice-title', 'notice-lock-el': 'notice-lock-text',
+    'notice-free-el': 'notice-free-text', 'btn-register-el': 'btn-register',
+    'svc1-title-el': 'svc1-title', 'svc1-desc-el': 'svc1-desc',
+    'svc2-title-el': 'svc2-title', 'svc2-desc-el': 'svc2-desc',
+    'svc3-title-el': 'svc3-title', 'svc3-desc-el': 'svc3-desc',
+    'svc4-title-el': 'svc4-title', 'svc4-desc-el': 'svc4-desc',
+    'svc5-title-el': 'svc5-title', 'svc5-desc-el': 'svc5-desc',
+    'sec-cases-el': 'sec-cases', 'login-title-el': 'login-title',
+    'login-btn-google-el': 'login-btn-google',
+    'login-notice1-el': 'login-notice1', 'login-notice2-el': 'login-notice2'
+  };
+  Object.entries(ids).forEach(([elId, key]) => {
+    const el = document.getElementById(elId);
+    if(el && t[key]) el.textContent = t[key];
+  });
+  // Badges
+  var badgeAI = document.getElementById('badge-ai');
+  var badgeDraft = document.getElementById('badge-draft');
+  if(badgeAI) badgeAI.textContent = currentUser ? t['badge-member-ok'] : t['badge-member'];
+  if(badgeDraft) badgeDraft.textContent = currentUser ? t['badge-member-ok'] : t['badge-member'];
+  // Badge free
+  document.querySelectorAll('.badge-free').forEach(el => {
+    if(el.id !== 'badge-ai' && el.id !== 'badge-draft') el.textContent = t['badge-free'];
+  });
+  // Case names
+  document.querySelectorAll('[data-case]').forEach(el => {
+    const key = el.getAttribute('data-case');
+    if(t[key]) el.textContent = t[key];
+  });
+  // Count items
+  document.querySelectorAll('[data-count]').forEach(el => {
+    el.textContent = el.getAttribute('data-count') + ' ' + t['items'];
+  });
 }
 
 // ===== PAGE NAVIGATION =====
