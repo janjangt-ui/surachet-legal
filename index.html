@@ -311,11 +311,11 @@ footer p{font-size:12.5px;color:var(--muted);}
       </div>
 
       <div class="svc-grid">
-        <div class="svc-card" onclick="checkAndGo('ai')">
+        <div class="svc-card" id="card-ai" onclick="checkAndGo('ai')">
           <div class="svc-num">๓.๑</div>
           <div class="svc-title">ให้คำปรึกษาด้วยระบบ AI</div>
           <div class="svc-desc">เชื่อมต่อไปทุกหน้าเพจคดีและกฎหมาย</div>
-          <span class="svc-badge badge-member">🔒 ต้องสมัครสมาชิก</span>
+          <span class="svc-badge badge-member" id="badge-ai">🔒 ต้องสมัครสมาชิก</span>
         </div>
         <div class="svc-card" onclick="window.open('https://line.me/ti/p/~surachet.a','_blank')">
           <div class="svc-num">๓.๒</div>
@@ -329,11 +329,11 @@ footer p{font-size:12.5px;color:var(--muted);}
           <div class="svc-desc">คดีปกครองและคดีคุ้มครองผู้บริโภคฟ้องศาลออนไลน์</div>
           <span class="svc-badge badge-free">✅ ไม่ต้องสมัครสมาชิก</span>
         </div>
-        <div class="svc-card" onclick="checkAndGo('draft')">
+        <div class="svc-card" id="card-draft" onclick="checkAndGo('draft')">
           <div class="svc-num">๓.๔</div>
           <div class="svc-title">ร่างคำฟ้องด้วยระบบ AI</div>
           <div class="svc-desc">แบบฟอร์มทนายความในศาล พร้อมผู้เชี่ยวชาญตรวจสอบ</div>
-          <span class="svc-badge badge-member">🔒 ต้องสมัครสมาชิก</span>
+          <span class="svc-badge badge-member" id="badge-draft">🔒 ต้องสมัครสมาชิก</span>
         </div>
         <div class="svc-card" onclick="showPage('services')">
           <div class="svc-num">๓.๕</div>
@@ -731,10 +731,19 @@ try {
       document.getElementById('btnLogout').style.display='block';
       document.getElementById('userDisplay').style.display='block';
       document.getElementById('userDisplay').textContent = user.displayName || user.email;
+      // อัปเดต badge บริการ member
+      var badgeAI = document.getElementById('badge-ai');
+      var badgeDraft = document.getElementById('badge-draft');
+      if(badgeAI){ badgeAI.className='svc-badge badge-free'; badgeAI.textContent='✅ สมาชิก — เข้าใช้ได้เลย'; }
+      if(badgeDraft){ badgeDraft.className='svc-badge badge-free'; badgeDraft.textContent='✅ สมาชิก — เข้าใช้ได้เลย'; }
     } else {
       document.getElementById('btnLogin').style.display='block';
       document.getElementById('btnLogout').style.display='none';
       document.getElementById('userDisplay').style.display='none';
+      var badgeAI = document.getElementById('badge-ai');
+      var badgeDraft = document.getElementById('badge-draft');
+      if(badgeAI){ badgeAI.className='svc-badge badge-member'; badgeAI.textContent='🔒 ต้องสมัครสมาชิก'; }
+      if(badgeDraft){ badgeDraft.className='svc-badge badge-member'; badgeDraft.textContent='🔒 ต้องสมัครสมาชิก'; }
     }
   });
 } catch(e){}
@@ -760,7 +769,7 @@ function checkAndGo(type){
     showPage('login');
     return;
   }
-  showPage('home');
+  showPage('services');
 }
 
 // ===== PAGE NAVIGATION =====
